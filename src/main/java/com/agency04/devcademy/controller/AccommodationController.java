@@ -3,7 +3,6 @@ package com.agency04.devcademy.controller;
 import com.agency04.devcademy.exception.AccommodationNotFoundException;
 import com.agency04.devcademy.model.Accommodation;
 import com.agency04.devcademy.repository.AccommodationRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
