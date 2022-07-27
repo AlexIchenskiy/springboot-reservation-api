@@ -4,11 +4,13 @@ import com.agency04.devcademy.exception.AccommodationNotFoundException;
 import com.agency04.devcademy.model.Accommodation;
 import com.agency04.devcademy.repository.AccommodationRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
+@Profile("EN")
 @RestController
 public class AccommodationController {
 
