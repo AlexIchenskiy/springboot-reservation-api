@@ -3,6 +3,8 @@ package com.agency04.devcademy.controller;
 import com.agency04.devcademy.exception.AccommodationNotFoundException;
 import com.agency04.devcademy.model.Accommodation;
 import com.agency04.devcademy.repository.AccommodationRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -13,7 +15,7 @@ public class AccommodationController {
 
     private final AccommodationRepository accommodationRepository;
 
-    AccommodationController(AccommodationRepository accommodationRepository) {
+    public AccommodationController(@Qualifier("accommodationRepository") AccommodationRepository accommodationRepository) {
         this.accommodationRepository = accommodationRepository;
     }
 
