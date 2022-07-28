@@ -3,6 +3,7 @@ package com.agency04.devcademy;
 import com.agency04.devcademy.controller.AccommodationController;
 import com.agency04.devcademy.model.Accommodation;
 import com.agency04.devcademy.repository.AccommodationRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -14,6 +15,9 @@ import javax.annotation.PostConstruct;
 @EnableJpaRepositories("com.agency04.devcademy")
 public class ApartmentReservationSystemApplication {
 
+	@Autowired
+	private AccommodationRepository accommodationRepository;
+
 	public static void main(String[] args) {
 		ConfigurableApplicationContext ctx = SpringApplication.run(ApartmentReservationSystemApplication.class, args);
 
@@ -22,11 +26,13 @@ public class ApartmentReservationSystemApplication {
 	}
 
 	@PostConstruct
-	void initDB(AccommodationRepository accommodationRepository) {
+	void initDB() {
+		AccommodationRepository accommodationRepository;
+
 		Accommodation accommodation1 = new Accommodation();
 		Accommodation accommodation2 = new Accommodation();
-		System.out.println("Preloading " + accommodationRepository.save(accommodation1));
-		System.out.println("Preloading " + accommodationRepository.save(accommodation2));
+		System.out.println("Preloading " + this.accommodationRepository.save(accommodation1));
+		System.out.println("Preloading " + this.accommodationRepository.save(accommodation2));
 	}
 
 }
