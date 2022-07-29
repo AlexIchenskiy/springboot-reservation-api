@@ -18,15 +18,26 @@ public class Accommodation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private @Size(max = 100) String title;
-    private @Size(max = 200) String subtitle;
+    @Size(max = 100)
+    private String title;
+
+    @Size(max = 200)
+    private String subtitle;
     private String description;
     private AccommodationType type;
-    private @NotNull @Min(1) @Max(5) Integer categorization;
-    private @Min(1) Integer personCount;
+
+    @NotNull
+    @Min(1)
+    @Max(5)
+    private Integer categorization;
+
+    @Min(1)
+    private Integer personCount;
     private String imageUrl;
     private boolean freeCancelation = true;
-    private @NotNull Double price;
+
+    @NotNull
+    private Double price;
 
     public Accommodation() {
     }
