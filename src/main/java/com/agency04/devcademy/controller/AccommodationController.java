@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/accommodations")
 public class AccommodationController {
 
     private final AccommodationService accommodationService;
@@ -19,28 +20,28 @@ public class AccommodationController {
         this.accommodationService = accommodationService;
     }
 
-    @GetMapping("/accommodations")
+    @GetMapping()
     public List<Accommodation> getAll() {
         return accommodationService.findAll();
     }
 
-    @PostMapping("/accommodations")
+    @PostMapping()
     public Accommodation add(@Valid @RequestBody Accommodation accommodation) {
         return accommodationService.save(accommodation);
     }
 
-    @GetMapping("/accommodations/{id}")
+    @GetMapping("{id}")
     public Accommodation getById(@PathVariable(value = "id") Long id) {
         return accommodationService.findById(id);
     }
 
-    @PutMapping("/accommodations/{id}")
+    @PutMapping("{id}")
     public Accommodation update(@PathVariable(value = "id") Long id,
                               @Valid @RequestBody Accommodation accommodationDetails) throws AccommodationNotFoundException {
         return accommodationService.update(id, accommodationDetails);
     }
 
-    @DeleteMapping("/accommodations/{id}")
+    @DeleteMapping("{id}")
     public void delete(@PathVariable Long id) {
         accommodationService.deleteById(id);
     }
