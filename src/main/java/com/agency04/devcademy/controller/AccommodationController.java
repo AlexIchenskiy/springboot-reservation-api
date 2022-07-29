@@ -3,6 +3,7 @@ package com.agency04.devcademy.controller;
 import com.agency04.devcademy.exception.AccommodationNotFoundException;
 import com.agency04.devcademy.model.Accommodation;
 import com.agency04.devcademy.repository.AccommodationRepository;
+import com.agency04.devcademy.service.AccommodationService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,50 +13,36 @@ import java.util.List;
 @RestController
 public class AccommodationController {
 
-    private final AccommodationRepository accommodationRepository;
+    private final AccommodationService accommodationService;
 
-    public AccommodationController(@Qualifier("accommodationRepository") AccommodationRepository accommodationRepository) {
-        this.accommodationRepository = accommodationRepository;
+    public AccommodationController(@Qualifier("accommodationService") AccommodationService accommodationService) {
+        this.accommodationService = accommodationService;
     }
 
     @GetMapping("/accommodations")
     public List<Accommodation> getAll() {
-        return accommodationRepository.findAll();
+        return accommodationService.findAll();
     }
 
     @PostMapping("/accommodations")
     public Accommodation add(@Valid @RequestBody Accommodation accommodation) {
-        return accommodationRepository.save(accommodation);
+        return accommodationService.save(accommodation);
     }
 
     @GetMapping("/accommodations/{id}")
     public Accommodation getById(@PathVariable(value = "id") Long id) {
-        return accommodationRepository.findById(id)
-                .orElseThrow(() -> new AccommodationNotFoundException(id));
+        return accommodationService.findById(id);
     }
 
     @PutMapping("/accommodations/{id}")
     public Accommodation update(@PathVariable(value = "id") Long id,
                               @Valid @RequestBody Accommodation accommodationDetails) throws AccommodationNotFoundException {
-        Accommodation accommodation = accommodationRepository.findById(id)
-                .orElseThrow(() -> new AccommodationNotFoundException(id));
-
-        accommodation.setTitle(accommodationDetails.getTitle());
-        accommodation.setSubtitle(accommodationDetails.getSubtitle());
-        accommodation.setDescription(accommodationDetails.getDescription());
-        accommodation.setType(accommodationDetails.getType());
-        accommodation.setCategorization(accommodationDetails.getCategorization());
-        accommodation.setPersonCount(accommodationDetails.getPersonCount());
-        accommodation.setImageUrl(accommodationDetails.getImageUrl());
-        accommodation.setFreeCancelation(accommodationDetails.isFreeCancelation());
-        accommodation.setPrice(accommodationDetails.getPrice());
-
-        return accommodationRepository.save(accommodation);
+        return accommodationService.update(id, accommodationDetails);
     }
 
     @DeleteMapping("/accommodations/{id}")
     public void delete(@PathVariable Long id) {
-        accommodationRepository.deleteById(id);
+        accommodationService.deleteById(id);
     }
 
 }
