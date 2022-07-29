@@ -5,6 +5,8 @@ import com.agency04.devcademy.model.Accommodation;
 import com.agency04.devcademy.repository.AccommodationRepository;
 import com.agency04.devcademy.service.AccommodationService;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -21,29 +23,31 @@ public class AccommodationController {
     }
 
     @GetMapping()
-    public List<Accommodation> getAll() {
-        return accommodationService.findAll();
+    public ResponseEntity<List<Accommodation>> getAll() {
+        return new ResponseEntity<>(accommodationService.findAll(), HttpStatus.OK);
     }
 
     @PostMapping()
-    public Accommodation add(@Valid @RequestBody Accommodation accommodation) {
-        return accommodationService.save(accommodation);
+    public ResponseEntity<Accommodation> add(@Valid @RequestBody Accommodation accommodation) {
+        return new ResponseEntity<>(accommodationService.save(accommodation), HttpStatus.OK);
     }
 
     @GetMapping("{id}")
-    public Accommodation getById(@PathVariable(value = "id") Long id) {
-        return accommodationService.findById(id);
+    public ResponseEntity<Accommodation> getById(@PathVariable(value = "id") Long id) {
+        return new ResponseEntity<>(accommodationService.findById(id), HttpStatus.OK);
     }
 
     @PutMapping("{id}")
-    public Accommodation update(@PathVariable(value = "id") Long id,
+    public ResponseEntity<Accommodation> update(@PathVariable(value = "id") Long id,
                               @Valid @RequestBody Accommodation accommodationDetails) throws AccommodationNotFoundException {
-        return accommodationService.update(id, accommodationDetails);
+        return new ResponseEntity<>(accommodationService.update(id, accommodationDetails), HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")
-    public void delete(@PathVariable Long id) {
+    public ResponseEntity<String> delete(@PathVariable Long id) {
         accommodationService.deleteById(id);
+
+        return new ResponseEntity<>("Accommodation deleted", HttpStatus.OK);
     }
 
 }
