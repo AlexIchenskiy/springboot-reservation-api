@@ -30,11 +30,7 @@ public class ApartmentReservationSystemApplication {
 
 		AccommodationController accommodationController = (AccommodationController) ctx.getBean("accommodationController");
 
-		if (Arrays.asList(env.getActiveProfiles()).contains("EN")) {
-			System.out.println("Controller initialized");
-		} else if (Arrays.asList(env.getActiveProfiles()).contains("HR")) {
-			System.out.println("Kontroler inicijaliziran");
-		}
+		System.out.println("Controller initialized");
 	}
 
 	@PostConstruct
