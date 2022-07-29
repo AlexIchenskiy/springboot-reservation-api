@@ -2,7 +2,6 @@ package com.agency04.devcademy.controller;
 
 import com.agency04.devcademy.exception.AccommodationNotFoundException;
 import com.agency04.devcademy.model.Accommodation;
-import com.agency04.devcademy.service.AccommodationService;
 import com.agency04.devcademy.service.impl.AccommodationServiceImpl;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
