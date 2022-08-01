@@ -3,14 +3,16 @@ package com.agency04.devcademy.service.impl;
 import com.agency04.devcademy.model.Accommodation;
 import com.agency04.devcademy.model.AccommodationType;
 import com.agency04.devcademy.service.AccommodationService;
+import com.agency04.devcademy.service.AccommodationServiceFactory;
 import com.agency04.devcademy.service.InitializeService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class InitializeServiceImplEN implements InitializeService {
 
-    AccommodationService accommodationService;
+    @Autowired
+    AccommodationServiceFactory accommodationServiceFactory;
 
-    public InitializeServiceImplEN(AccommodationService accommodationService) {
-        this.accommodationService = accommodationService;
+    public InitializeServiceImplEN() {
     }
 
     @Override
@@ -23,8 +25,10 @@ public class InitializeServiceImplEN implements InitializeService {
                 "The queen of the Croatian Dalmatian islands", AccommodationType.ROOM,
                 5, 4, "https://www.hvarinfo.com/images/hvar7.jpg",
                 false, 200.0);
-        System.out.println("Preloading " + this.accommodationService.save(accommodation1));
-        System.out.println("Preloading " + this.accommodationService.save(accommodation2));
+        System.out.println("Preloading " + this.accommodationServiceFactory
+                .getAccommodationService(accommodation1.getType()).save(accommodation1));
+        System.out.println("Preloading " + this.accommodationServiceFactory.
+                getAccommodationService(accommodation2.getType()).save(accommodation2));
     }
 
 }

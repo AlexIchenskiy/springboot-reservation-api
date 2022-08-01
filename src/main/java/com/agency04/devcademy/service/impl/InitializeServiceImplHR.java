@@ -3,14 +3,16 @@ package com.agency04.devcademy.service.impl;
 import com.agency04.devcademy.model.Accommodation;
 import com.agency04.devcademy.model.AccommodationType;
 import com.agency04.devcademy.service.AccommodationService;
+import com.agency04.devcademy.service.AccommodationServiceFactory;
 import com.agency04.devcademy.service.InitializeService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class InitializeServiceImplHR implements InitializeService {
 
-    AccommodationService accommodationService;
+    @Autowired
+    AccommodationServiceFactory accommodationServiceFactory;
 
-    public InitializeServiceImplHR(AccommodationService accommodationService) {
-        this.accommodationService = accommodationService;
+    public InitializeServiceImplHR() {
     }
 
     @Override
@@ -25,7 +27,9 @@ public class InitializeServiceImplHR implements InitializeService {
                 5, 5,
                 "http://visitdubrovnik.hr/wp-content/uploads/2018/09/shutterstock_1101003428-1024x761.jpg",
                 false, 250.0);
-        System.out.println("Preducitavanje " + this.accommodationService.save(accommodation1));
-        System.out.println("Preducitavanje " + this.accommodationService.save(accommodation2));
+        System.out.println("Preducitavanje " + this.accommodationServiceFactory.
+                getAccommodationService(accommodation1.getType()).save(accommodation1));
+        System.out.println("Preducitavanje " + this.accommodationServiceFactory.
+                getAccommodationService(accommodation2.getType()).save(accommodation2));
     }
 }

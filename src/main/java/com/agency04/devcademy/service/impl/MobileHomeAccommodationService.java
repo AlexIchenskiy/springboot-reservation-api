@@ -2,20 +2,24 @@ package com.agency04.devcademy.service.impl;
 
 import com.agency04.devcademy.exception.AccommodationNotFoundException;
 import com.agency04.devcademy.model.Accommodation;
+import com.agency04.devcademy.model.AccommodationType;
 import com.agency04.devcademy.repository.AccommodationRepository;
 import com.agency04.devcademy.service.AccommodationService;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class AccommodationServiceImpl implements AccommodationService {
+public class MobileHomeAccommodationService implements AccommodationService {
 
     private AccommodationRepository accommodationRepository;
 
-    public AccommodationServiceImpl(@Qualifier("accommodationRepository") AccommodationRepository accommodationRepository) {
+    public MobileHomeAccommodationService(@Qualifier("accommodationRepository") AccommodationRepository accommodationRepository) {
         this.accommodationRepository = accommodationRepository;
+    }
+
+    @Override
+    public AccommodationType getAccommodationType() {
+        return AccommodationType.MOBILE_HOME;
     }
 
     @Override
@@ -56,4 +60,5 @@ public class AccommodationServiceImpl implements AccommodationService {
     public void deleteById(Long id) {
         accommodationRepository.deleteById(id);
     }
+
 }
