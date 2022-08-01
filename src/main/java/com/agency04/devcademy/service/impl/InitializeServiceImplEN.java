@@ -4,11 +4,7 @@ import com.agency04.devcademy.model.Accommodation;
 import com.agency04.devcademy.model.AccommodationType;
 import com.agency04.devcademy.service.AccommodationService;
 import com.agency04.devcademy.service.InitializeService;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Service;
 
-@Service
-@Profile("EN")
 public class InitializeServiceImplEN implements InitializeService {
 
     AccommodationService accommodationService;
