@@ -1,6 +1,7 @@
 package com.agency04.devcademy.model;
 
 import com.sun.istack.NotNull;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +13,7 @@ import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
+@Component
 public class Accommodation {
 
     @Id
