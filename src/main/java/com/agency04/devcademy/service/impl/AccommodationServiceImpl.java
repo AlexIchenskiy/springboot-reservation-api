@@ -19,7 +19,7 @@ public class AccommodationServiceImpl implements AccommodationService {
 
     @Override
     public AccommodationType getAccommodationType() {
-        return AccommodationType.APARTMENT;
+        return null;
     }
 
     @Override
