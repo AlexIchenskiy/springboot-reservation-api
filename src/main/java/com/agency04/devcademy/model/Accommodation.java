@@ -13,7 +13,6 @@ import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
-@Component
 public class Accommodation {
 
     @Id
