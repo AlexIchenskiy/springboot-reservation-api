@@ -2,6 +2,7 @@ package com.agency04.devcademy.service;
 
 import com.agency04.devcademy.model.AccommodationType;
 import com.agency04.devcademy.repository.AccommodationRepository;
+import com.agency04.devcademy.service.impl.AccommodationServiceImpl;
 import com.agency04.devcademy.service.impl.ApartmentAccommodationService;
 import com.agency04.devcademy.service.impl.MobileHomeAccommodationService;
 import com.agency04.devcademy.service.impl.RoomAccommodationService;
@@ -15,12 +16,12 @@ public class AccommodationServiceFactory {
     AccommodationRepository accommodationRepository;
 
     public AccommodationService getAccommodationService(AccommodationType accommodationType) {
-        switch (accommodationType) {
-            case ROOM: return new RoomAccommodationService(accommodationRepository);
-            case APARTMENT: return new ApartmentAccommodationService(accommodationRepository);
-            case MOBILE_HOME: return new MobileHomeAccommodationService(accommodationRepository);
-            default: return new RoomAccommodationService(accommodationRepository);
-        }
+        return switch (accommodationType) {
+            case ROOM -> new RoomAccommodationService(accommodationRepository);
+            case APARTMENT -> new ApartmentAccommodationService(accommodationRepository);
+            case MOBILE_HOME -> new MobileHomeAccommodationService(accommodationRepository);
+            default -> new AccommodationServiceImpl(accommodationRepository);
+        };
     }
 
     public AccommodationService getAccommodationService() {
