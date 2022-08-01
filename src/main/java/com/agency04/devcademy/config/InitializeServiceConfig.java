@@ -14,11 +14,11 @@ public class InitializeServiceConfig {
     @Bean
     @Primary
     @Profile("EN")
-    InitializeServiceImplEN initializeServiceImplEN(AccommodationService accommodationService) {
+    InitializeServiceImplEN initializeService(AccommodationService accommodationService) {
         return new InitializeServiceImplEN(accommodationService);
     }
 
-    @Bean
+    @Bean("initializeService")
     @Profile("HR")
     InitializeServiceImplHR initializeServiceImplHR(AccommodationService accommodationService) {
         return new InitializeServiceImplHR(accommodationService);
