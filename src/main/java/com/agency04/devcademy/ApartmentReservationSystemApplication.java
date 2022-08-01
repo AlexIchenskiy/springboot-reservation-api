@@ -1,6 +1,7 @@
 package com.agency04.devcademy;
 
 import com.agency04.devcademy.controller.AccommodationController;
+import com.agency04.devcademy.datasource.ApplicationDataSource;
 import com.agency04.devcademy.service.InitializeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -19,10 +20,11 @@ public class ApartmentReservationSystemApplication {
 
 	public static void main(String[] args) {
 		ConfigurableApplicationContext ctx = SpringApplication.run(ApartmentReservationSystemApplication.class, args);
+		ApplicationDataSource dataSource = ctx.getBean(ApplicationDataSource.class);
 
 		AccommodationController accommodationController = (AccommodationController) ctx.getBean("accommodationController");
 
-		System.out.println("Controller initialized");
+		System.out.println("Controller initialized\nWelcome " + dataSource.getUsername());
 	}
 
 	@PostConstruct
