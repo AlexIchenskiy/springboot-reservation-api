@@ -6,9 +6,13 @@ import com.agency04.devcademy.model.AccommodationType;
 import com.agency04.devcademy.repository.AccommodationRepository;
 import com.agency04.devcademy.service.AccommodationService;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
+@Primary
 public class AccommodationServiceImpl implements AccommodationService {
 
     private AccommodationRepository accommodationRepository;
