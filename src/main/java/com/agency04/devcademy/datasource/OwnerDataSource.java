@@ -33,8 +33,9 @@ public class OwnerDataSource {
         this.instagramUrl = instagramUrl;
     }
 
-    public void printOwnerData(String greeting) {
-        System.out.println(greeting + ", your facebook and instagram are: " + facebookUrl + " and " + instagramUrl);
+    @Value("${accommodation.owner.name}")
+    public void printOwnerData(String name) {
+        System.out.println(name + ", your facebook and instagram are: " + facebookUrl + " and " + instagramUrl);
     }
 
 }

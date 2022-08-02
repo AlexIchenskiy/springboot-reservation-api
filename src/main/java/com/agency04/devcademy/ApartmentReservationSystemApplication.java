@@ -27,7 +27,6 @@ public class ApartmentReservationSystemApplication {
 		AccommodationController accommodationController = (AccommodationController) ctx.getBean("accommodationController");
 
 		System.out.println("Controller initialized\nWelcome " + applicationDataSourceataSource.getUsername());
-		ownerDataSource.printOwnerData("Hello");
 	}
 
 	@PostConstruct
