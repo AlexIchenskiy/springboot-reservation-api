@@ -57,7 +57,10 @@ public class LocationServiceImpl implements LocationService {
     @Override
     public void deleteById(Long id) {
         Location location = locationRepository.findById(id)
-                .orElseThrow(() -> new LocationNotFoundException(id));
+                .orElse(null);
+
+        if (location == null)
+            return;
 
         // delete all accommodations with this location
         for (Accommodation a : accommodationService.findAll()) {
