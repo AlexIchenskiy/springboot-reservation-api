@@ -1,7 +1,6 @@
 package com.agency04.devcademy.model;
 
 import com.sun.istack.NotNull;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -37,9 +36,7 @@ public class Accommodation {
     @NotNull
     private Double price;
 
-    @ManyToOne
-    @JoinColumn(name = "location_id")
-    @Cascade(org.hibernate.annotations.CascadeType.MERGE)
+    @OneToOne
     @NotNull
     private Location location;
 
