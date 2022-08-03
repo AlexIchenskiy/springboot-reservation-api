@@ -21,12 +21,12 @@ public class ApartmentReservationSystemApplication {
 
 	public static void main(String[] args) {
 		ConfigurableApplicationContext ctx = SpringApplication.run(ApartmentReservationSystemApplication.class, args);
-		ApplicationDataSource applicationDataSourceataSource = ctx.getBean(ApplicationDataSource.class);
+		ApplicationDataSource applicationDataSource = ctx.getBean(ApplicationDataSource.class);
 		OwnerDataSource ownerDataSource = ctx.getBean(OwnerDataSource.class);
 
 		AccommodationController accommodationController = (AccommodationController) ctx.getBean("accommodationController");
 
-		System.out.println("Controller initialized\nWelcome " + applicationDataSourceataSource.getUsername());
+		System.out.println("Controller initialized\nWelcome " + applicationDataSource.getUsername());
 	}
 
 	@PostConstruct
