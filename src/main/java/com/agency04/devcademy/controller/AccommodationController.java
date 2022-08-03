@@ -19,6 +19,8 @@ public class AccommodationController {
 
     public AccommodationController(@Qualifier("accommodationServiceFactory") AccommodationServiceFactory accommodationServiceFactory) {
         this.accommodationServiceFactory = accommodationServiceFactory;
+
+        System.out.println("Controller initialized\n");
     }
 
     @GetMapping()
