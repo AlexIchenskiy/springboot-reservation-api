@@ -1,11 +1,13 @@
 package com.agency04.devcademy.service;
 
 import com.agency04.devcademy.model.Accommodation;
+import com.agency04.devcademy.model.AccommodationType;
 
 import java.util.List;
 
 public interface AccommodationService {
 
+    AccommodationType getAccommodationType();
     Accommodation save(Accommodation accommodation);
     List<Accommodation> findAll();
     Accommodation findById(Long id);

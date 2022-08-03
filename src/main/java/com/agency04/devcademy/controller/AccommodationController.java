@@ -15,36 +15,38 @@ import java.util.List;
 @RequestMapping("/api/accommodation")
 public class AccommodationController {
 
-    private final AccommodationServiceImpl accommodationServiceImpl;
+    private final AccommodationServiceImpl accommodationService;
 
-    public AccommodationController(@Qualifier("accommodationServiceImpl") AccommodationServiceImpl accommodationServiceImpl) {
-        this.accommodationServiceImpl = accommodationServiceImpl;
+    public AccommodationController(@Qualifier("accommodationServiceImpl") AccommodationServiceImpl accommodationService) {
+        this.accommodationService = accommodationService;
+
+        System.out.println("Controller initialized\n");
     }
 
     @GetMapping()
     public ResponseEntity<List<Accommodation>> getAll() {
-        return new ResponseEntity<>(accommodationServiceImpl.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(accommodationService.findAll(), HttpStatus.OK);
     }
 
     @PostMapping()
     public ResponseEntity<Accommodation> add(@Valid @RequestBody Accommodation accommodation) {
-        return new ResponseEntity<>(accommodationServiceImpl.save(accommodation), HttpStatus.OK);
+        return new ResponseEntity<>(accommodationService.save(accommodation), HttpStatus.OK);
     }
 
     @GetMapping("{id}")
     public ResponseEntity<Accommodation> getById(@PathVariable(value = "id") Long id) {
-        return new ResponseEntity<>(accommodationServiceImpl.findById(id), HttpStatus.OK);
+        return new ResponseEntity<>(accommodationService.findById(id), HttpStatus.OK);
     }
 
     @PutMapping("{id}")
     public ResponseEntity<Accommodation> update(@PathVariable(value = "id") Long id,
                               @Valid @RequestBody Accommodation accommodationDetails) throws AccommodationNotFoundException {
-        return new ResponseEntity<>(accommodationServiceImpl.update(id, accommodationDetails), HttpStatus.OK);
+        return new ResponseEntity<>(accommodationService.update(id, accommodationDetails), HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) {
-        accommodationServiceImpl.deleteById(id);
+        accommodationService.deleteById(id);
 
         return new ResponseEntity<>("Accommodation deleted", HttpStatus.OK);
     }

@@ -1,6 +1,8 @@
 package com.agency04.devcademy.controller;
 
 import com.agency04.devcademy.exception.AccommodationNotFoundException;
+import com.agency04.devcademy.exception.DuplicateLocationException;
+import com.agency04.devcademy.exception.LocationNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -25,7 +27,7 @@ public class ExceptionController {
     }
 
     @ExceptionHandler(AccommodationNotFoundException.class)
-    public final ResponseEntity handleAccommodationNotFoundException(Exception e, WebRequest request) {
+    public final ResponseEntity<ErrorResponse> handleAccommodationNotFoundException(Exception e, WebRequest request) {
         List<String> details = new ArrayList<>();
 
         details.add(e.getLocalizedMessage());
@@ -33,6 +35,28 @@ public class ExceptionController {
         ErrorResponse error = new ErrorResponse("Accommodation id does not exist", details);
 
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(LocationNotFoundException.class)
+    public final ResponseEntity<ErrorResponse> handleLocationNotFoundException(Exception e, WebRequest request) {
+        List<String> details = new ArrayList<>();
+
+        details.add(e.getLocalizedMessage());
+
+        ErrorResponse error = new ErrorResponse("Location id does not exist", details);
+
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(DuplicateLocationException.class)
+    public final ResponseEntity<ErrorResponse> duplicateLocationException(Exception e, WebRequest request) {
+        List<String> details = new ArrayList<>();
+
+        details.add(e.getLocalizedMessage());
+
+        ErrorResponse error = new ErrorResponse("Location already exists", details);
+
+        return new ResponseEntity<>(error, HttpStatus.CONFLICT);
     }
 
 }

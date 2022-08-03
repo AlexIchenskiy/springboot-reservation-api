@@ -2,10 +2,7 @@ package com.agency04.devcademy.model;
 
 import com.sun.istack.NotNull;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
@@ -39,12 +36,24 @@ public class Accommodation {
     @NotNull
     private Double price;
 
+    @OneToOne
+    @NotNull
+    private Location location;
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
     public Accommodation() {
     }
 
     public Accommodation(String title, String subtitle, String description,
                          AccommodationType type, Integer categorization, Integer personCount, String imageUrl,
-                         boolean freeCancelation, Double price) {
+                         boolean freeCancelation, Double price, Location location) {
         this.title = title;
         this.subtitle = subtitle;
         this.description = description;
@@ -54,6 +63,7 @@ public class Accommodation {
         this.imageUrl = imageUrl;
         this.freeCancelation = freeCancelation;
         this.price = price;
+        this.location = location;
     }
 
     public Long getId() {
@@ -160,6 +170,7 @@ public class Accommodation {
                 ", imageUrl='" + imageUrl + '\'' +
                 ", freeCancelation=" + freeCancelation +
                 ", price=" + price +
+                ", location=" + location +
                 '}';
     }
 }
