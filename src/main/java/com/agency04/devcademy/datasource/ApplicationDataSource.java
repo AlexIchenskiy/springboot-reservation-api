@@ -11,7 +11,7 @@ public class ApplicationDataSource {
     public ApplicationDataSource(@Value("${accommodation.owner.name}") String username) {
         this.username = username;
 
-        System.out.println("Welcome " + this.getUsername());
+        System.out.println("Welcome " + username);
     }
 
     public String getUsername() {
