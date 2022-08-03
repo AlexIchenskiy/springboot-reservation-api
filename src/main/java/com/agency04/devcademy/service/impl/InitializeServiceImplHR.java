@@ -3,14 +3,13 @@ package com.agency04.devcademy.service.impl;
 import com.agency04.devcademy.model.Accommodation;
 import com.agency04.devcademy.model.AccommodationType;
 import com.agency04.devcademy.model.Location;
-import com.agency04.devcademy.service.AccommodationServiceFactory;
 import com.agency04.devcademy.service.InitializeService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class InitializeServiceImplHR implements InitializeService {
 
     @Autowired
-    AccommodationServiceFactory accommodationServiceFactory;
+    AccommodationServiceImpl accommodationService;
 
     @Autowired
     LocationServiceImpl locationService;
@@ -37,9 +36,7 @@ public class InitializeServiceImplHR implements InitializeService {
         System.out.println("\nPreducitavanje " + this.locationService.save(location1));
         System.out.println("Preducitavanje " + this.locationService.save(location2));
 
-        System.out.println("\nPreducitavanje " + this.accommodationServiceFactory.
-                getAccommodationService(accommodation1.getType()).save(accommodation1));
-        System.out.println("Preducitavanje " + this.accommodationServiceFactory.
-                getAccommodationService(accommodation2.getType()).save(accommodation2) + "\n");
+        System.out.println("\nPreducitavanje " + this.accommodationService.save(accommodation1));
+        System.out.println("Preducitavanje " + this.accommodationService.save(accommodation2) + "\n");
     }
 }

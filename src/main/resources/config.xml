@@ -4,6 +4,6 @@
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean name="mobileHomeAccommodationService" class="com.agency04.devcademy.service.impl.MobileHomeAccommodationService"></bean>
+    <bean name="mobileHomeAccommodationService" class="com.agency04.devcademy.service.impl.AccommodationService"></bean>
 
 </beans>
