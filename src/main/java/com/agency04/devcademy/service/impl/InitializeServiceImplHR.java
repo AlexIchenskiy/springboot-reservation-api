@@ -19,8 +19,8 @@ public class InitializeServiceImplHR implements InitializeService {
 
     @Override
     public void initDatabase() {
-        Location location1 = new Location("Dubrovnik", 20000);
-        Location location2 = new Location("Mljet", 20224);
+        Location location1 = new Location("Dubrovnik", "Grad Dubrovnik", 20000);
+        Location location2 = new Location("Mljet", "Orok Mljet", 20224);
 
         Accommodation accommodation1 = new Accommodation("Sobe u Dubrovniku", "Grad",
                 "Hrvatski kulturni dragulj", AccommodationType.ROOM,

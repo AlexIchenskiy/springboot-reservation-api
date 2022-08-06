@@ -19,8 +19,8 @@ public class InitializeServiceImplEN implements InitializeService {
 
     @Override
     public void initDatabase() {
-        Location location1 = new Location("Krk", 51500);
-        Location location2 = new Location("Hvar", 21450);
+        Location location1 = new Location("Krk", "Krk island", 51500);
+        Location location2 = new Location("Hvar", "Hvar island", 21450);
 
         Accommodation accommodation1 = new Accommodation("Krk apartments", "Island",
                 "The largest island in Croatia", AccommodationType.APARTMENT,

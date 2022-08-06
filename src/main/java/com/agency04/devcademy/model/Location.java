@@ -15,17 +15,22 @@ public class Location {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Size(max = 100)
+    @NotNull
+    private String title;
+
     @Size(max = 150)
     @NotNull
-    private String name;
+    private String subtitle;
 
     private Integer postalCode;
 
     public Location() {
     }
 
-    public Location(String name, Integer postalCode) {
-        this.name = name;
+    public Location(String title, String subtitle, Integer postalCode) {
+        this.title = title;
+        this.subtitle = subtitle;
         this.postalCode = postalCode;
     }
 
@@ -33,12 +38,20 @@ public class Location {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getSubtitle() {
+        return subtitle;
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
     }
 
     public Integer getPostalCode() {
@@ -56,13 +69,15 @@ public class Location {
 
         Location location = (Location) o;
 
-        if (!Objects.equals(name, location.name)) return false;
+        if (!Objects.equals(title, location.title)) return false;
+        if (!Objects.equals(subtitle, location.subtitle)) return false;
         return Objects.equals(postalCode, location.postalCode);
     }
 
     @Override
     public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
+        int result = title != null ? title.hashCode() : 0;
+        result = 31 * result + (subtitle != null ? subtitle.hashCode() : 0);
         result = 31 * result + (postalCode != null ? postalCode.hashCode() : 0);
         return result;
     }
@@ -71,8 +86,10 @@ public class Location {
     public String toString() {
         return "Location{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", title='" + title + '\'' +
+                ", subtitle='" + subtitle + '\'' +
                 ", postalCode=" + postalCode +
                 '}';
     }
+
 }

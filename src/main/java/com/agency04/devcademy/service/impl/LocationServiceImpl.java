@@ -48,7 +48,8 @@ public class LocationServiceImpl implements LocationService {
         Location location = locationRepository.findById(id)
                 .orElseThrow(() -> new LocationNotFoundException(id));
 
-        location.setName(locationDetails.getName());
+        location.setTitle(locationDetails.getTitle());
+        location.setSubtitle(location.getSubtitle());
         location.setPostalCode(locationDetails.getPostalCode());
 
         return locationRepository.save(location);
