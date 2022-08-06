@@ -1,10 +1,9 @@
 package com.agency04.devcademy.model;
 
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 public class Reservation {
@@ -17,6 +16,11 @@ public class Reservation {
     @JoinColumn(name = "accommodation_id")
     @NotNull
     private Accommodation accommodation;
+
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinColumn(name = "users_id")
+    @NotNull
+    private Users users;
 
     // private ReservationType reservationType;
 
@@ -32,7 +36,21 @@ public class Reservation {
     @NotNull
     private Boolean submitted;
 
+    private Timestamp created;
+
+    private Timestamp updated;
+
     public Reservation() {
+    }
+
+    @PrePersist
+    private void onCreate() {
+        created = new Timestamp(new Date().getTime());
+    }
+
+    @PreUpdate
+    private void onUpdate() {
+        updated = new Timestamp(new Date().getTime());
     }
 
     public Long getId() {
@@ -70,4 +88,5 @@ public class Reservation {
     public void setSubmitted(Boolean submitted) {
         this.submitted = submitted;
     }
+
 }

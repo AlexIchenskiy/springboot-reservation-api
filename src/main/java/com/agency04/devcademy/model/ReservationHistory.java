@@ -3,6 +3,7 @@ package com.agency04.devcademy.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 public class ReservationHistory {
@@ -22,8 +23,21 @@ public class ReservationHistory {
 
     // private ReservationType toType;
 
+    private Timestamp created;
+
+    private Timestamp updated;
 
     public ReservationHistory() {
+    }
+
+    @PrePersist
+    private void onCreate() {
+        created = new Timestamp(new Date().getTime());
+    }
+
+    @PreUpdate
+    private void onUpdate() {
+        updated = new Timestamp(new Date().getTime());
     }
 
     public Long getId() {

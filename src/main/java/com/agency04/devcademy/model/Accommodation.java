@@ -7,6 +7,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -21,7 +23,9 @@ public class Accommodation {
 
     @Size(max = 200)
     private String subtitle;
+
     private String description;
+
     private AccommodationType type;
 
     @NotNull
@@ -31,11 +35,17 @@ public class Accommodation {
 
     @Min(1)
     private Integer personCount;
+
     private String imageUrl;
+
     private boolean freeCancelation = true;
 
     @NotNull
     private Double price;
+
+    private Timestamp created;
+
+    private Timestamp updated;
 
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "location_id")
@@ -66,6 +76,16 @@ public class Accommodation {
         this.freeCancelation = freeCancelation;
         this.price = price;
         this.location = location;
+    }
+
+    @PrePersist
+    private void onCreate() {
+        created = new Timestamp(new Date().getTime());
+    }
+
+    @PreUpdate
+    private void onUpdate() {
+        updated = new Timestamp(new Date().getTime());
     }
 
     public Long getId() {
@@ -172,7 +192,10 @@ public class Accommodation {
                 ", imageUrl='" + imageUrl + '\'' +
                 ", freeCancelation=" + freeCancelation +
                 ", price=" + price +
+                ", created=" + created +
+                ", updated=" + updated +
                 ", location=" + location +
                 '}';
     }
+
 }

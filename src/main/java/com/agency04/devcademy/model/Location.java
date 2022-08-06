@@ -1,11 +1,10 @@
 package com.agency04.devcademy.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -25,6 +24,10 @@ public class Location {
 
     private Integer postalCode;
 
+    private Timestamp created;
+
+    private Timestamp updated;
+
     public Location() {
     }
 
@@ -32,6 +35,16 @@ public class Location {
         this.title = title;
         this.subtitle = subtitle;
         this.postalCode = postalCode;
+    }
+
+    @PrePersist
+    private void onCreate() {
+        created = new Timestamp(new Date().getTime());
+    }
+
+    @PreUpdate
+    private void onUpdate() {
+        updated = new Timestamp(new Date().getTime());
     }
 
     public Long getId() {
@@ -89,6 +102,8 @@ public class Location {
                 ", title='" + title + '\'' +
                 ", subtitle='" + subtitle + '\'' +
                 ", postalCode=" + postalCode +
+                ", created=" + created +
+                ", updated=" + updated +
                 '}';
     }
 
