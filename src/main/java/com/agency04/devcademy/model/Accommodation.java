@@ -37,7 +37,7 @@ public class Accommodation {
     @NotNull
     private Double price;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "location_id")
     @NotNull
     private Location location;

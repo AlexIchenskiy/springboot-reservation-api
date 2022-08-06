@@ -11,7 +11,7 @@ public class ReservationHistory {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToMany(cascade = CascadeType.MERGE)
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "reservation_id")
     @NotNull
     private Reservation reservation;
@@ -21,5 +21,29 @@ public class ReservationHistory {
     // private ReservationType fromType;
 
     // private ReservationType toType;
+
+
+    public ReservationHistory() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Reservation getReservation() {
+        return reservation;
+    }
+
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
+    }
+
+    public Timestamp getEntryTimestamp() {
+        return entryTimestamp;
+    }
+
+    public void setEntryTimestamp(Timestamp entryTimestamp) {
+        this.entryTimestamp = entryTimestamp;
+    }
 
 }

@@ -13,7 +13,7 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToMany(cascade = CascadeType.MERGE)
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "accommodation_id")
     @NotNull
     private Accommodation accommodation;
