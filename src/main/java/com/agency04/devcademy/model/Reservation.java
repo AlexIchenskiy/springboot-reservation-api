@@ -23,7 +23,7 @@ public class Reservation {
     @NotNull
     private Users users;
 
-    // private ReservationType reservationType;
+    private ReservationType reservationType;
 
     @NotNull
     private Timestamp checkIn;
@@ -82,6 +82,14 @@ public class Reservation {
 
     public void setUsers(Users users) {
         this.users = users;
+    }
+
+    public ReservationType getReservationType() {
+        return reservationType;
+    }
+
+    public void setReservationType(ReservationType reservationType) {
+        this.reservationType = reservationType;
     }
 
     public Timestamp getCheckIn() {
@@ -145,6 +153,7 @@ public class Reservation {
                 "id=" + id +
                 ", accommodation=" + accommodation +
                 ", users=" + users +
+                ", reservationType=" + reservationType +
                 ", checkIn=" + checkIn +
                 ", checkOut=" + checkOut +
                 ", personsCount=" + personsCount +
@@ -153,5 +162,4 @@ public class Reservation {
                 ", updated=" + updated +
                 '}';
     }
-
 }
