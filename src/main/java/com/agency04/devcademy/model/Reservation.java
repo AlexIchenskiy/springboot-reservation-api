@@ -23,7 +23,7 @@ public class Reservation {
     @NotNull
     private Users users;
 
-    // private ReservationType reservationType;
+    private ReservationType reservationType;
 
     @NotNull
     private Timestamp checkIn;
@@ -44,14 +44,18 @@ public class Reservation {
     public Reservation() {
     }
 
-    public Reservation(Accommodation accommodation, Users users, Timestamp checkIn, Timestamp checkOut,
-                       Integer personsCount, Boolean submitted) {
+    public Reservation(Accommodation accommodation, Users users, ReservationType reservationType, Timestamp checkIn,
+                       Timestamp checkOut, Integer personsCount, Boolean submitted, Timestamp created,
+                       Timestamp updated) {
         this.accommodation = accommodation;
         this.users = users;
+        this.reservationType = reservationType;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.personsCount = personsCount;
         this.submitted = submitted;
+        this.created = created;
+        this.updated = updated;
     }
 
     @PrePersist
@@ -82,6 +86,14 @@ public class Reservation {
 
     public void setUsers(Users users) {
         this.users = users;
+    }
+
+    public ReservationType getReservationType() {
+        return reservationType;
+    }
+
+    public void setReservationType(ReservationType reservationType) {
+        this.reservationType = reservationType;
     }
 
     public Timestamp getCheckIn() {
@@ -145,6 +157,7 @@ public class Reservation {
                 "id=" + id +
                 ", accommodation=" + accommodation +
                 ", users=" + users +
+                ", reservationType=" + reservationType +
                 ", checkIn=" + checkIn +
                 ", checkOut=" + checkOut +
                 ", personsCount=" + personsCount +
@@ -153,5 +166,4 @@ public class Reservation {
                 ", updated=" + updated +
                 '}';
     }
-
 }
