@@ -75,6 +75,14 @@ public class Location {
         this.postalCode = postalCode;
     }
 
+    public Timestamp getCreated() {
+        return created;
+    }
+
+    public Timestamp getUpdated() {
+        return updated;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

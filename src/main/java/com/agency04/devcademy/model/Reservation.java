@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 public class Reservation {
@@ -43,6 +44,16 @@ public class Reservation {
     public Reservation() {
     }
 
+    public Reservation(Accommodation accommodation, Users users, Timestamp checkIn, Timestamp checkOut,
+                       Integer personsCount, Boolean submitted) {
+        this.accommodation = accommodation;
+        this.users = users;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+        this.personsCount = personsCount;
+        this.submitted = submitted;
+    }
+
     @PrePersist
     private void onCreate() {
         created = new Timestamp(new Date().getTime());
@@ -55,6 +66,22 @@ public class Reservation {
 
     public Long getId() {
         return id;
+    }
+
+    public Accommodation getAccommodation() {
+        return accommodation;
+    }
+
+    public void setAccommodation(Accommodation accommodation) {
+        this.accommodation = accommodation;
+    }
+
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
     }
 
     public Timestamp getCheckIn() {
@@ -87,6 +114,44 @@ public class Reservation {
 
     public void setSubmitted(Boolean submitted) {
         this.submitted = submitted;
+    }
+
+    public Timestamp getCreated() {
+        return created;
+    }
+
+    public Timestamp getUpdated() {
+        return updated;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Reservation that = (Reservation) o;
+
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "id=" + id +
+                ", accommodation=" + accommodation +
+                ", users=" + users +
+                ", checkIn=" + checkIn +
+                ", checkOut=" + checkOut +
+                ", personsCount=" + personsCount +
+                ", submitted=" + submitted +
+                ", created=" + created +
+                ", updated=" + updated +
+                '}';
     }
 
 }
