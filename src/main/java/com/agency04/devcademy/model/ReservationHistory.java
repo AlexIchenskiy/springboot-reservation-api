@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -16,7 +17,7 @@ public class ReservationHistory {
     @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "reservation_id")
     @NotNull
-    private Reservation reservation;
+    private List<Reservation> reservationList;
 
     private Timestamp entryTimestamp;
 
@@ -31,12 +32,14 @@ public class ReservationHistory {
     public ReservationHistory() {
     }
 
-    public ReservationHistory(Reservation reservation, Timestamp entryTimestamp, ReservationType fromType,
-                              ReservationType toType) {
-        this.reservation = reservation;
+    public ReservationHistory(List<Reservation> reservationList, Timestamp entryTimestamp, ReservationType fromType,
+                              ReservationType toType, Timestamp created, Timestamp updated) {
+        this.reservationList = reservationList;
         this.entryTimestamp = entryTimestamp;
         this.fromType = fromType;
         this.toType = toType;
+        this.created = created;
+        this.updated = updated;
     }
 
     @PrePersist
@@ -53,12 +56,12 @@ public class ReservationHistory {
         return id;
     }
 
-    public Reservation getReservation() {
-        return reservation;
+    public List<Reservation> getReservationList() {
+        return reservationList;
     }
 
-    public void setReservation(Reservation reservation) {
-        this.reservation = reservation;
+    public void setReservationList(List<Reservation> reservationList) {
+        this.reservationList = reservationList;
     }
 
     public Timestamp getEntryTimestamp() {
@@ -112,7 +115,7 @@ public class ReservationHistory {
     public String toString() {
         return "ReservationHistory{" +
                 "id=" + id +
-                ", reservation=" + reservation +
+                ", reservationList=" + reservationList +
                 ", entryTimestamp=" + entryTimestamp +
                 ", fromType=" + fromType +
                 ", toType=" + toType +
