@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -36,6 +37,22 @@ public class AccommodationController {
     @GetMapping("{id}")
     public ResponseEntity<Accommodation> getById(@PathVariable(value = "id") Long id) {
         return new ResponseEntity<>(accommodationService.findById(id), HttpStatus.OK);
+    }
+
+    @GetMapping
+    @RequestMapping("/recommendation")
+    public ResponseEntity<List<Accommodation>> recommendation() {
+        List<Accommodation> list = accommodationService.findAll();
+
+        if (list.size() == 0) {
+            return new ResponseEntity<>(list, HttpStatus.NOT_FOUND);
+        }
+
+        Collections.shuffle(list);
+
+        list = list.stream().limit(10).toList();
+
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @PutMapping("{id}")
