@@ -36,13 +36,11 @@ public class ReservationHistory {
     }
 
     public ReservationHistory(List<Reservation> reservationList, Timestamp entryTimestamp, ReservationType fromType,
-                              ReservationType toType, Timestamp created, Timestamp updated) {
+                              ReservationType toType) {
         this.reservationList = reservationList;
         this.entryTimestamp = entryTimestamp;
         this.fromType = fromType;
         this.toType = toType;
-        this.created = created;
-        this.updated = updated;
     }
 
     @PrePersist

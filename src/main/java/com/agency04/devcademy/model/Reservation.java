@@ -6,7 +6,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.Objects;
 
 @Entity
 @Data
@@ -26,6 +25,7 @@ public class Reservation {
     @NotNull
     private Users users;
 
+    @NotNull
     private ReservationType reservationType;
 
     @NotNull
@@ -48,8 +48,7 @@ public class Reservation {
     }
 
     public Reservation(Accommodation accommodation, Users users, ReservationType reservationType, Timestamp checkIn,
-                       Timestamp checkOut, Integer personsCount, Boolean submitted, Timestamp created,
-                       Timestamp updated) {
+                       Timestamp checkOut, Integer personsCount, Boolean submitted) {
         this.accommodation = accommodation;
         this.users = users;
         this.reservationType = reservationType;
@@ -57,8 +56,6 @@ public class Reservation {
         this.checkOut = checkOut;
         this.personsCount = personsCount;
         this.submitted = submitted;
-        this.created = created;
-        this.updated = updated;
     }
 
     @PrePersist

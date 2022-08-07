@@ -1,10 +1,15 @@
 package com.agency04.devcademy.service.impl;
 
-import com.agency04.devcademy.model.Accommodation;
-import com.agency04.devcademy.model.AccommodationType;
-import com.agency04.devcademy.model.Location;
+import com.agency04.devcademy.model.*;
+import com.agency04.devcademy.repository.ReservationHistoryRepository;
+import com.agency04.devcademy.repository.ReservationRepository;
+import com.agency04.devcademy.repository.UsersRepository;
 import com.agency04.devcademy.service.InitializeService;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
 
 public class InitializeServiceImplHR implements InitializeService {
 
@@ -13,6 +18,15 @@ public class InitializeServiceImplHR implements InitializeService {
 
     @Autowired
     LocationServiceImpl locationService;
+
+    @Autowired
+    UsersRepository usersRepository;
+
+    @Autowired
+    ReservationRepository reservationRepository;
+
+    @Autowired
+    ReservationHistoryRepository reservationHistoryRepository;
 
     public InitializeServiceImplHR() {
     }
@@ -33,10 +47,27 @@ public class InitializeServiceImplHR implements InitializeService {
                 "http://visitdubrovnik.hr/wp-content/uploads/2018/09/shutterstock_1101003428-1024x761.jpg",
                 false, 250.0, location2);
 
+        Users user = new Users("Obican", "Covjek", "obican.covjek@fer.hr");
+
+        Reservation reservation = new Reservation(accommodation1,
+                user,
+                ReservationType.TEMPORARY, new Timestamp(new Date(2022, 7, 8).getTime()),
+                new Timestamp(new Date(2022, 8, 8).getTime()), 3, true);
+
+        ReservationHistory reservationHistory = new ReservationHistory(List.of(reservation),
+                new Timestamp(new Date(2022, 7, 8).getTime()), ReservationType.TEMPORARY,
+                ReservationType.TEMPORARY);
+
         System.out.println("\nPreducitavanje " + this.locationService.save(location1));
         System.out.println("Preducitavanje " + this.locationService.save(location2));
 
         System.out.println("\nPreducitavanje " + this.accommodationService.save(accommodation1));
-        System.out.println("Preducitavanje " + this.accommodationService.save(accommodation2) + "\n");
+        System.out.println("Preducitavanje " + this.accommodationService.save(accommodation2));
+
+        System.out.println("\nPreducitavanje " + this.usersRepository.save(user));
+
+        System.out.println("\nPreducitavanje " + this.reservationRepository.save(reservation));
+
+        System.out.println("\nPreducitavanje " + this.reservationHistoryRepository.save(reservationHistory) + "\n");
     }
 }
