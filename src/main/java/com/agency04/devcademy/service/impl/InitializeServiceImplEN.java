@@ -6,6 +6,7 @@ import com.agency04.devcademy.repository.ReservationHistoryRepository;
 import com.agency04.devcademy.repository.ReservationRepository;
 import com.agency04.devcademy.repository.UsersRepository;
 import com.agency04.devcademy.service.InitializeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Timestamp;
@@ -13,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 public class InitializeServiceImplEN implements InitializeService {
 
     @Autowired
@@ -61,24 +63,24 @@ public class InitializeServiceImplEN implements InitializeService {
                 new Timestamp(new Date(2022, 7, 10).getTime()), ReservationType.TEMPORARY,
                 ReservationType.TEMPORARY);
 
-        System.out.println("\nPreloading " + this.locationService.save(location1));
-        System.out.println("Preloading " + this.locationService.save(location2));
+        log.info("\nPreloading " + this.locationService.save(location1));
+        log.info("Preloading " + this.locationService.save(location2));
 
-        System.out.println("\nPreloading " + this.accommodationService.save(accommodation1));
-        System.out.println("Preloading " + this.accommodationService.save(accommodation2));
+        log.info("\nPreloading " + this.accommodationService.save(accommodation1));
+        log.info("Preloading " + this.accommodationService.save(accommodation2));
 
-        System.out.println("\nPreloading " + this.usersRepository.save(user));
+        log.info("\nPreloading " + this.usersRepository.save(user));
 
-        System.out.println("\nPreloading " + this.reservationRepository.save(reservation));
+        log.info("\nPreloading " + this.reservationRepository.save(reservation));
 
-        System.out.println("\nPreloading " + this.reservationHistoryRepository.save(reservationHistory) + "\n");
+        log.info("\nPreloading " + this.reservationHistoryRepository.save(reservationHistory) + "\n");
 
         List<Optional<Accommodation>> listOfAccommodations = accommodationRepository.findByCategorizationAndPersonCountGreaterThan(3, 5);
 
         if (listOfAccommodations.size() == 0) {
-            System.out.println("No accommodations with 3 stars and at least 5 beds :(");
+            log.info("No accommodations with 3 stars and at least 5 beds :(");
         } else {
-            System.out.println("Here are all accommodations with 3 stars and at least 5 beds: " +
+            log.info("Here are all accommodations with 3 stars and at least 5 beds: " +
                     listOfAccommodations);
         }
     }
