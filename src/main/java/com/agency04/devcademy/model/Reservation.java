@@ -1,5 +1,7 @@
 package com.agency04.devcademy.model;
 
+import lombok.*;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
@@ -7,6 +9,7 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
+@Data
 public class Reservation {
 
     @Id
@@ -68,102 +71,4 @@ public class Reservation {
         updated = new Timestamp(new Date().getTime());
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public Accommodation getAccommodation() {
-        return accommodation;
-    }
-
-    public void setAccommodation(Accommodation accommodation) {
-        this.accommodation = accommodation;
-    }
-
-    public Users getUsers() {
-        return users;
-    }
-
-    public void setUsers(Users users) {
-        this.users = users;
-    }
-
-    public ReservationType getReservationType() {
-        return reservationType;
-    }
-
-    public void setReservationType(ReservationType reservationType) {
-        this.reservationType = reservationType;
-    }
-
-    public Timestamp getCheckIn() {
-        return checkIn;
-    }
-
-    public void setCheckIn(Timestamp checkIn) {
-        this.checkIn = checkIn;
-    }
-
-    public Timestamp getCheckOut() {
-        return checkOut;
-    }
-
-    public void setCheckOut(Timestamp checkOut) {
-        this.checkOut = checkOut;
-    }
-
-    public Integer getPersonsCount() {
-        return personsCount;
-    }
-
-    public void setPersonsCount(Integer personsCount) {
-        this.personsCount = personsCount;
-    }
-
-    public Boolean getSubmitted() {
-        return submitted;
-    }
-
-    public void setSubmitted(Boolean submitted) {
-        this.submitted = submitted;
-    }
-
-    public Timestamp getCreated() {
-        return created;
-    }
-
-    public Timestamp getUpdated() {
-        return updated;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Reservation that = (Reservation) o;
-
-        return Objects.equals(id, that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
-    }
-
-    @Override
-    public String toString() {
-        return "Reservation{" +
-                "id=" + id +
-                ", accommodation=" + accommodation +
-                ", users=" + users +
-                ", reservationType=" + reservationType +
-                ", checkIn=" + checkIn +
-                ", checkOut=" + checkOut +
-                ", personsCount=" + personsCount +
-                ", submitted=" + submitted +
-                ", created=" + created +
-                ", updated=" + updated +
-                '}';
-    }
 }
