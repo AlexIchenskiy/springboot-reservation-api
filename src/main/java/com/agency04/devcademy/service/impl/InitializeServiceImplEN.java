@@ -1,6 +1,7 @@
 package com.agency04.devcademy.service.impl;
 
 import com.agency04.devcademy.model.*;
+import com.agency04.devcademy.repository.AccommodationRepository;
 import com.agency04.devcademy.repository.ReservationHistoryRepository;
 import com.agency04.devcademy.repository.ReservationRepository;
 import com.agency04.devcademy.repository.UsersRepository;
@@ -10,11 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public class InitializeServiceImplEN implements InitializeService {
 
     @Autowired
     AccommodationServiceImpl accommodationService;
+
+    @Autowired
+    AccommodationRepository accommodationRepository;
 
     @Autowired
     LocationServiceImpl locationService;
@@ -67,6 +72,15 @@ public class InitializeServiceImplEN implements InitializeService {
         System.out.println("\nPreloading " + this.reservationRepository.save(reservation));
 
         System.out.println("\nPreloading " + this.reservationHistoryRepository.save(reservationHistory) + "\n");
+
+        List<Optional<Accommodation>> listOfAccommodations = accommodationRepository.findByCategorizationAndPersonCountGreaterThan(3, 5);
+
+        if (listOfAccommodations.size() == 0) {
+            System.out.println("No accommodations with 3 stars and at least 5 beds :(");
+        } else {
+            System.out.println("Here are all accommodations with 3 stars and at least 5 beds: " +
+                    listOfAccommodations);
+        }
     }
 
 }
