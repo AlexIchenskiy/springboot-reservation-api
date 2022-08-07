@@ -55,6 +55,21 @@ public class AccommodationController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @GetMapping
+    @RequestMapping("/location")
+    public ResponseEntity<List<Accommodation>> getAccommodationsByLocationId(@RequestParam Long locationId) {
+        List<Accommodation> list = accommodationService.findAll().stream()
+                .filter((a) -> {
+                    return a.getLocation().getId().equals(locationId);
+                }).toList();
+
+        if (list.size() == 0) {
+            return new ResponseEntity<>(list, HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
     @PutMapping("{id}")
     public ResponseEntity<Accommodation> update(@PathVariable(value = "id") Long id,
                               @Valid @RequestBody Accommodation accommodationDetails) throws AccommodationNotFoundException {
