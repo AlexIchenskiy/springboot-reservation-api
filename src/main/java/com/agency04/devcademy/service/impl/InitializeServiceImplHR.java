@@ -10,9 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 public class InitializeServiceImplHR implements InitializeService {
@@ -58,11 +58,11 @@ public class InitializeServiceImplHR implements InitializeService {
 
         Reservation reservation = new Reservation(accommodation1,
                 user,
-                ReservationType.TEMPORARY, new Timestamp(new Date(2022, 7, 8).getTime()),
-                new Timestamp(new Date(2022, 8, 8).getTime()), 3, true);
+                ReservationType.TEMPORARY, new Timestamp(new Date(2022, Calendar.AUGUST, 8).getTime()),
+                new Timestamp(new Date(2022, Calendar.SEPTEMBER, 8).getTime()), 3, true);
 
         ReservationHistory reservationHistory = new ReservationHistory(List.of(reservation),
-                new Timestamp(new Date(2022, 7, 8).getTime()), ReservationType.TEMPORARY,
+                new Timestamp(new Date(2022, Calendar.AUGUST, 8).getTime()), ReservationType.TEMPORARY,
                 ReservationType.TEMPORARY);
 
         log.info("\nPreducitavanje " + this.locationService.save(location1));

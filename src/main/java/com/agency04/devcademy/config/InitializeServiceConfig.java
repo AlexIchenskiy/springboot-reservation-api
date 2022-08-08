@@ -1,9 +1,7 @@
 package com.agency04.devcademy.config;
 
-import com.agency04.devcademy.service.AccommodationService;
 import com.agency04.devcademy.service.impl.InitializeServiceImplEN;
 import com.agency04.devcademy.service.impl.InitializeServiceImplHR;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;

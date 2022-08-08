@@ -59,9 +59,7 @@ public class AccommodationController {
     @RequestMapping("/location")
     public ResponseEntity<List<Accommodation>> getAccommodationsByLocationId(@RequestParam Long locationId) {
         List<Accommodation> list = accommodationService.findAll().stream()
-                .filter((a) -> {
-                    return a.getLocation().getId().equals(locationId);
-                }).toList();
+                .filter((a) -> a.getLocation().getId().equals(locationId)).toList();
 
         if (list.size() == 0) {
             return new ResponseEntity<>(list, HttpStatus.NOT_FOUND);
