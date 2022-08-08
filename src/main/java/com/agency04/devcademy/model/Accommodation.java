@@ -12,17 +12,11 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
-public class Accommodation {
+public class Accommodation extends Description {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @Size(max = 100)
-    private String title;
-
-    @Size(max = 200)
-    private String subtitle;
 
     private String description;
 
@@ -66,8 +60,7 @@ public class Accommodation {
     public Accommodation(String title, String subtitle, String description,
                          AccommodationType type, Integer categorization, Integer personCount, String imageUrl,
                          boolean freeCancelation, Double price, Location location) {
-        this.title = title;
-        this.subtitle = subtitle;
+        super(title, subtitle);
         this.description = description;
         this.type = type;
         this.categorization = categorization;
@@ -90,22 +83,6 @@ public class Accommodation {
 
     public Long getId() {
         return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getSubtitle() {
-        return subtitle;
-    }
-
-    public void setSubtitle(String subtitle) {
-        this.subtitle = subtitle;
     }
 
     public String getDescription() {

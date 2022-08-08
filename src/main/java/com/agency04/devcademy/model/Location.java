@@ -8,19 +8,11 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
-public class Location {
+public class Location extends Description {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @Size(max = 100)
-    @NotNull
-    private String title;
-
-    @Size(max = 150)
-    @NotNull
-    private String subtitle;
 
     private Integer postalCode;
 
@@ -32,8 +24,7 @@ public class Location {
     }
 
     public Location(String title, String subtitle, Integer postalCode) {
-        this.title = title;
-        this.subtitle = subtitle;
+        super(title, subtitle);
         this.postalCode = postalCode;
     }
 
@@ -49,22 +40,6 @@ public class Location {
 
     public Long getId() {
         return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getSubtitle() {
-        return subtitle;
-    }
-
-    public void setSubtitle(String subtitle) {
-        this.subtitle = subtitle;
     }
 
     public Integer getPostalCode() {
