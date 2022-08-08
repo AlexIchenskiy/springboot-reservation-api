@@ -1,9 +1,7 @@
 package com.agency04.devcademy.controller;
 
-import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
-@XmlRootElement(name = "error")
 public class ErrorResponse
 {
     public ErrorResponse(String message, List<String> details) {

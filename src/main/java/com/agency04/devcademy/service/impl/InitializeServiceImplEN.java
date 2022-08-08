@@ -75,7 +75,7 @@ public class InitializeServiceImplEN implements InitializeService {
 
         log.info("\nPreloading " + this.reservationHistoryRepository.save(reservationHistory) + "\n");
 
-        List<Optional<Accommodation>> listOfAccommodations = accommodationRepository.findByCategorizationAndPersonCountGreaterThan(3, 5);
+        List<Accommodation> listOfAccommodations = accommodationRepository.findByCategorizationAndPersonCountGreaterThanEqual(3, 5);
 
         if (listOfAccommodations.size() == 0) {
             log.info("No accommodations with 3 stars and at least 5 beds :(");

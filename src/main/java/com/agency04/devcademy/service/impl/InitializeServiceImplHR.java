@@ -77,7 +77,8 @@ public class InitializeServiceImplHR implements InitializeService {
 
         log.info("\nPreducitavanje " + this.reservationHistoryRepository.save(reservationHistory) + "\n");
 
-        List<Optional<Accommodation>> listOfAccommodations = accommodationRepository.findByCategorizationAndPersonCountGreaterThan(3, 5);
+        List<Accommodation> listOfAccommodations =
+                accommodationRepository.findByCategorizationAndPersonCountGreaterThanEqual(3, 5);
 
         if (listOfAccommodations.size() == 0) {
             log.info("Nema smjestaja s 3 zvijezde i minimalno 5 kreveta :(");
