@@ -65,15 +65,7 @@ public class InitializeServiceImplHR implements InitializeService {
                 new Timestamp(new Date(2022, Calendar.AUGUST, 8).getTime()), ReservationType.TEMPORARY,
                 ReservationType.TEMPORARY);
 
-        log.info("\nPreducitavanje " + this.locationService.save(location1));
-        log.info("Preducitavanje " + this.locationService.save(location2));
-
-        log.info("\nPreducitavanje " + this.accommodationService.save(accommodation1));
         log.info("Preducitavanje " + this.accommodationService.save(accommodation2));
-
-        log.info("\nPreducitavanje " + this.usersRepository.save(user));
-
-        log.info("\nPreducitavanje " + this.reservationRepository.save(reservation));
 
         log.info("\nPreducitavanje " + this.reservationHistoryRepository.save(reservationHistory) + "\n");
 

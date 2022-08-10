@@ -62,16 +62,8 @@ public class InitializeServiceImplEN implements InitializeService {
         ReservationHistory reservationHistory = new ReservationHistory(List.of(reservation),
                 new Timestamp(new Date(2022, Calendar.AUGUST, 10).getTime()), ReservationType.TEMPORARY,
                 ReservationType.TEMPORARY);
-
-        log.info("\nPreloading " + this.locationService.save(location1));
-        log.info("Preloading " + this.locationService.save(location2));
-
-        log.info("\nPreloading " + this.accommodationService.save(accommodation1));
+        
         log.info("Preloading " + this.accommodationService.save(accommodation2));
-
-        log.info("\nPreloading " + this.usersRepository.save(user));
-
-        log.info("\nPreloading " + this.reservationRepository.save(reservation));
 
         log.info("\nPreloading " + this.reservationHistoryRepository.save(reservationHistory) + "\n");
 
