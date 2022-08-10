@@ -23,8 +23,10 @@ public class ReservationHistory {
 
     private Timestamp entryTimestamp;
 
+    @Enumerated(EnumType.ORDINAL)
     private ReservationType fromType;
 
+    @Enumerated(EnumType.ORDINAL)
     private ReservationType toType;
 
     private Timestamp created;

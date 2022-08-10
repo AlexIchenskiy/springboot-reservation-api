@@ -20,6 +20,7 @@ public class Accommodation extends Description {
 
     private String description;
 
+    @Enumerated(EnumType.ORDINAL)
     private AccommodationType type;
 
     @NotNull

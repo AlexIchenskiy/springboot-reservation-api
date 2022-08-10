@@ -25,6 +25,7 @@ public class Reservation {
     @NotNull
     private Users users;
 
+    @Enumerated(EnumType.ORDINAL)
     @NotNull
     private ReservationType reservationType;
 
