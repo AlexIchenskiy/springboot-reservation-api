@@ -3,8 +3,6 @@ package com.agency04.devcademy.service.impl;
 import com.agency04.devcademy.model.*;
 import com.agency04.devcademy.repository.AccommodationRepository;
 import com.agency04.devcademy.repository.ReservationHistoryRepository;
-import com.agency04.devcademy.repository.ReservationRepository;
-import com.agency04.devcademy.repository.UsersRepository;
 import com.agency04.devcademy.service.InitializeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,19 +16,7 @@ import java.util.List;
 public class InitializeServiceImplEN implements InitializeService {
 
     @Autowired
-    AccommodationServiceImpl accommodationService;
-
-    @Autowired
     AccommodationRepository accommodationRepository;
-
-    @Autowired
-    LocationServiceImpl locationService;
-
-    @Autowired
-    UsersRepository usersRepository;
-
-    @Autowired
-    ReservationRepository reservationRepository;
 
     @Autowired
     ReservationHistoryRepository reservationHistoryRepository;
@@ -62,8 +48,8 @@ public class InitializeServiceImplEN implements InitializeService {
         ReservationHistory reservationHistory = new ReservationHistory(List.of(reservation),
                 new Timestamp(new Date(2022, Calendar.AUGUST, 10).getTime()), ReservationType.TEMPORARY,
                 ReservationType.TEMPORARY);
-        
-        log.info("Preloading " + this.accommodationService.save(accommodation2));
+
+        log.info("Preloading " + this.accommodationRepository.save(accommodation2));
 
         log.info("\nPreloading " + this.reservationHistoryRepository.save(reservationHistory) + "\n");
 
