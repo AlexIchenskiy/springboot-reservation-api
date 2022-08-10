@@ -1,10 +1,13 @@
 package com.agency04.devcademy.model;
 
+import lombok.*;
+
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @MappedSuperclass
+@Data
 public class Description {
 
     @Size(max = 100)
@@ -23,19 +26,4 @@ public class Description {
         this.subtitle = subtitle;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getSubtitle() {
-        return subtitle;
-    }
-
-    public void setSubtitle(String subtitle) {
-        this.subtitle = subtitle;
-    }
 }

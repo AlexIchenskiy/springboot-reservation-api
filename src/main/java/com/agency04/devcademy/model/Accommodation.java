@@ -1,5 +1,7 @@
 package com.agency04.devcademy.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -9,6 +11,7 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
+@Data
 public class Accommodation extends Description {
 
     @Id
@@ -78,74 +81,6 @@ public class Accommodation extends Description {
         updated = new Timestamp(new Date().getTime());
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public AccommodationType getType() {
-        return type;
-    }
-
-    public void setType(AccommodationType type) {
-        this.type = type;
-    }
-
-    public Integer getCategorization() {
-        return categorization;
-    }
-
-    public void setCategorization(Integer categorization) {
-        this.categorization = categorization;
-    }
-
-    public Integer getPersonCount() {
-        return personCount;
-    }
-
-    public void setPersonCount(Integer personCount) {
-        this.personCount = personCount;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public boolean isFreeCancelation() {
-        return freeCancelation;
-    }
-
-    public void setFreeCancelation(boolean freeCancelation) {
-        this.freeCancelation = freeCancelation;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public Timestamp getCreated() {
-        return created;
-    }
-
-    public Timestamp getUpdated() {
-        return updated;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -159,25 +94,6 @@ public class Accommodation extends Description {
     @Override
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
-    }
-
-    @Override
-    public String toString() {
-        return "Accommodation{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", subtitle='" + subtitle + '\'' +
-                ", description='" + description + '\'' +
-                ", type=" + type +
-                ", categorization=" + categorization +
-                ", personCount=" + personCount +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", freeCancelation=" + freeCancelation +
-                ", price=" + price +
-                ", created=" + created +
-                ", updated=" + updated +
-                ", location=" + location +
-                '}';
     }
 
 }

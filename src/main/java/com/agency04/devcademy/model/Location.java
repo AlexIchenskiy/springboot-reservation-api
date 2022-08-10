@@ -1,11 +1,14 @@
 package com.agency04.devcademy.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Objects;
 
 @Entity
+@Data
 public class Location extends Description {
 
     @Id
@@ -36,26 +39,6 @@ public class Location extends Description {
         updated = new Timestamp(new Date().getTime());
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public Integer getPostalCode() {
-        return postalCode;
-    }
-
-    public void setPostalCode(Integer postalCode) {
-        this.postalCode = postalCode;
-    }
-
-    public Timestamp getCreated() {
-        return created;
-    }
-
-    public Timestamp getUpdated() {
-        return updated;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -74,18 +57,6 @@ public class Location extends Description {
         result = 31 * result + (subtitle != null ? subtitle.hashCode() : 0);
         result = 31 * result + (postalCode != null ? postalCode.hashCode() : 0);
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Location{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", subtitle='" + subtitle + '\'' +
-                ", postalCode=" + postalCode +
-                ", created=" + created +
-                ", updated=" + updated +
-                '}';
     }
 
 }
