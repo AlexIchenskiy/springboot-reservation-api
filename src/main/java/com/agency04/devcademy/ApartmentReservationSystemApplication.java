@@ -12,7 +12,7 @@ import javax.annotation.PostConstruct;
 
 @SpringBootApplication
 @EnableJpaRepositories("com.agency04.devcademy")
-@ComponentScan("com.agency04.devcademy.service.impl")
+@ComponentScan("com.agency04.devcademy")
 public class ApartmentReservationSystemApplication {
 
 	@Autowired
