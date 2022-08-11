@@ -1,26 +1,37 @@
 package com.agency04.devcademy.service.impl;
 
-import com.agency04.devcademy.model.Accommodation;
-import com.agency04.devcademy.model.AccommodationType;
-import com.agency04.devcademy.model.Location;
+import com.agency04.devcademy.model.*;
+import com.agency04.devcademy.repository.AccommodationRepository;
+import com.agency04.devcademy.repository.ReservationHistoryRepository;
 import com.agency04.devcademy.service.InitializeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+@Slf4j
+@Service
+@Profile("HR")
 public class InitializeServiceImplHR implements InitializeService {
 
     @Autowired
-    AccommodationServiceImpl accommodationService;
+    private AccommodationRepository accommodationRepository;
 
     @Autowired
-    LocationServiceImpl locationService;
+    private ReservationHistoryRepository reservationHistoryRepository;
 
     public InitializeServiceImplHR() {
     }
 
     @Override
     public void initDatabase() {
-        Location location1 = new Location("Dubrovnik", 20000);
-        Location location2 = new Location("Mljet", 20224);
+        Location location1 = new Location("Dubrovnik", "Grad Dubrovnik", 20000);
+        Location location2 = new Location("Mljet", "Otok Mljet", 20224);
 
         Accommodation accommodation1 = new Accommodation("Sobe u Dubrovniku", "Grad",
                 "Hrvatski kulturni dragulj", AccommodationType.ROOM,
@@ -33,10 +44,30 @@ public class InitializeServiceImplHR implements InitializeService {
                 "http://visitdubrovnik.hr/wp-content/uploads/2018/09/shutterstock_1101003428-1024x761.jpg",
                 false, 250.0, location2);
 
-        System.out.println("\nPreducitavanje " + this.locationService.save(location1));
-        System.out.println("Preducitavanje " + this.locationService.save(location2));
+        Users user = new Users("Obican", "Covjek", "obican.covjek@fer.hr");
 
-        System.out.println("\nPreducitavanje " + this.accommodationService.save(accommodation1));
-        System.out.println("Preducitavanje " + this.accommodationService.save(accommodation2) + "\n");
+        Reservation reservation = new Reservation(accommodation1,
+                user,
+                ReservationType.TEMPORARY, new Timestamp(new Date(2022, Calendar.AUGUST, 8).getTime()),
+                new Timestamp(new Date(2022, Calendar.SEPTEMBER, 8).getTime()), 3, true);
+
+        ReservationHistory reservationHistory = new ReservationHistory(List.of(reservation),
+                new Timestamp(new Date(2022, Calendar.AUGUST, 8).getTime()), ReservationType.TEMPORARY,
+                ReservationType.TEMPORARY);
+
+        log.info("Preducitavanje " + this.accommodationRepository.save(accommodation2));
+
+        log.info("\nPreducitavanje " + this.reservationHistoryRepository.save(reservationHistory) + "\n");
+
+        List<Accommodation> listOfAccommodations =
+                accommodationRepository.findByCategorizationAndPersonCountGreaterThanEqual(3, 5);
+
+        if (listOfAccommodations.size() == 0) {
+            log.info("Nema smjestaja s 3 zvijezde i minimalno 5 kreveta :(");
+        } else {
+            log.info("Svi smjestaji s 3 zvijezde i minimalno 5 kreveta: " +
+                    listOfAccommodations);
+        }
+
     }
 }

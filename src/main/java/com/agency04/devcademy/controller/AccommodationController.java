@@ -38,6 +38,18 @@ public class AccommodationController {
         return new ResponseEntity<>(accommodationService.findById(id), HttpStatus.OK);
     }
 
+    @GetMapping
+    @RequestMapping("/recommendation")
+    public ResponseEntity<List<Accommodation>> recommendation() {
+        return new ResponseEntity<>(accommodationService.recommendation(), HttpStatus.OK);
+    }
+
+    @GetMapping
+    @RequestMapping("/location")
+    public ResponseEntity<List<Accommodation>> getAccommodationsByLocationId(@RequestParam Long locationId) {
+        return new ResponseEntity<>(accommodationService.getAccommodationByLocationId(locationId), HttpStatus.OK);
+    }
+
     @PutMapping("{id}")
     public ResponseEntity<Accommodation> update(@PathVariable(value = "id") Long id,
                               @Valid @RequestBody Accommodation accommodationDetails) throws AccommodationNotFoundException {

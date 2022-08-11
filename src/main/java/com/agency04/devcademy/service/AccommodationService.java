@@ -10,6 +10,8 @@ public interface AccommodationService {
     AccommodationType getAccommodationType();
     Accommodation save(Accommodation accommodation);
     List<Accommodation> findAll();
+    List<Accommodation> recommendation();
+    List<Accommodation> getAccommodationByLocationId(Long id);
     Accommodation findById(Long id);
     Accommodation update(Long id, Accommodation accommodationDetails);
     void deleteById(Long id);

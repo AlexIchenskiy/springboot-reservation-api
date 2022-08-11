@@ -1,52 +1,42 @@
 package com.agency04.devcademy.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import lombok.Data;
+
+import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
-public class Location {
+@Data
+public class Location extends Description {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Size(max = 150)
-    @NotNull
-    private String name;
-
     private Integer postalCode;
+
+    private Timestamp created;
+
+    private Timestamp updated;
 
     public Location() {
     }
 
-    public Location(String name, Integer postalCode) {
-        this.name = name;
+    public Location(String title, String subtitle, Integer postalCode) {
+        super(title, subtitle);
         this.postalCode = postalCode;
     }
 
-    public Long getId() {
-        return id;
+    @PrePersist
+    private void onCreate() {
+        created = new Timestamp(new Date().getTime());
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getPostalCode() {
-        return postalCode;
-    }
-
-    public void setPostalCode(Integer postalCode) {
-        this.postalCode = postalCode;
+    @PreUpdate
+    private void onUpdate() {
+        updated = new Timestamp(new Date().getTime());
     }
 
     @Override
@@ -56,23 +46,17 @@ public class Location {
 
         Location location = (Location) o;
 
-        if (!Objects.equals(name, location.name)) return false;
+        if (!Objects.equals(title, location.title)) return false;
+        if (!Objects.equals(subtitle, location.subtitle)) return false;
         return Objects.equals(postalCode, location.postalCode);
     }
 
     @Override
     public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
+        int result = title != null ? title.hashCode() : 0;
+        result = 31 * result + (subtitle != null ? subtitle.hashCode() : 0);
         result = 31 * result + (postalCode != null ? postalCode.hashCode() : 0);
         return result;
     }
 
-    @Override
-    public String toString() {
-        return "Location{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", postalCode=" + postalCode +
-                '}';
-    }
 }
