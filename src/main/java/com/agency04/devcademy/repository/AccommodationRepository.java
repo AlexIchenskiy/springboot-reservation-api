@@ -10,5 +10,6 @@ import java.util.List;
 public interface AccommodationRepository extends JpaRepository<Accommodation, Long> {
 
     List<Accommodation> findByCategorizationAndPersonCountGreaterThanEqual(Integer stars, Integer beds);
+    List<Accommodation> findByLocationId(Long id);
 
 }

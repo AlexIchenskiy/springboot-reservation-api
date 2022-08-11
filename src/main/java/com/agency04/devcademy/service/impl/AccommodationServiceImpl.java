@@ -7,8 +7,11 @@ import com.agency04.devcademy.repository.AccommodationRepository;
 import com.agency04.devcademy.service.AccommodationService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -34,6 +37,20 @@ public class AccommodationServiceImpl implements AccommodationService {
     @Override
     public List<Accommodation> findAll() {
         return accommodationRepository.findAll();
+    }
+
+    @Override
+    public List<Accommodation> recommendation() {
+        List<Accommodation> list = accommodationRepository.findAll();
+
+        Collections.shuffle(list);
+
+        return list.stream().limit(10).toList();
+    }
+
+    @Override
+    public List<Accommodation> getAccommodationByLocationId(Long id) {
+        return accommodationRepository.findByLocationId(id);
     }
 
     @Override
