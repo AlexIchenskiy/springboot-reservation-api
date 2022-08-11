@@ -4,6 +4,7 @@ import com.agency04.devcademy.service.impl.AccommodationServiceImpl;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,7 @@ class AccommodationControllerTest {
     @Mock
     AccommodationServiceImpl accommodationService;
 
-    @Autowired
-    @Mock
+    @InjectMocks
     AccommodationController accommodationController;
 
     @Before
