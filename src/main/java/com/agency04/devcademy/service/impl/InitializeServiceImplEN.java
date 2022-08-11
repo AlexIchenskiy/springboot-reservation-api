@@ -6,6 +6,8 @@ import com.agency04.devcademy.repository.ReservationHistoryRepository;
 import com.agency04.devcademy.service.InitializeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -13,6 +15,8 @@ import java.util.Date;
 import java.util.List;
 
 @Slf4j
+@Service
+@Profile("EN")
 public class InitializeServiceImplEN implements InitializeService {
 
     @Autowired
