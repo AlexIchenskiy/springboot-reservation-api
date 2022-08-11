@@ -1,6 +1,7 @@
 package com.agency04.devcademy.controller;
 
 import com.agency04.devcademy.service.impl.AccommodationServiceImpl;
+import com.agency04.devcademy.service.impl.InitializeServiceImplTEST;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -8,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -16,6 +18,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
+@ComponentScan(basePackageClasses = InitializeServiceImplTEST.class)
 class AccommodationControllerTest {
 
     @Mock
