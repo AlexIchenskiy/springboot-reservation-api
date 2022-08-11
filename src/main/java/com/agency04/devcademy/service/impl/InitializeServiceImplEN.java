@@ -20,10 +20,10 @@ import java.util.List;
 public class InitializeServiceImplEN implements InitializeService {
 
     @Autowired
-    AccommodationRepository accommodationRepository;
+    private AccommodationRepository accommodationRepository;
 
     @Autowired
-    ReservationHistoryRepository reservationHistoryRepository;
+    private ReservationHistoryRepository reservationHistoryRepository;
 
     public InitializeServiceImplEN() {
     }

@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 public class AccommodationServiceConfig {
 
     @Autowired
-    AccommodationRepository accommodationRepository;
+    private AccommodationRepository accommodationRepository;
 
     @Bean("roomAccommodationService")
     AccommodationServiceImpl accommodationService() {

@@ -16,7 +16,7 @@ import javax.annotation.PostConstruct;
 public class ApartmentReservationSystemApplication {
 
 	@Autowired
-	InitializeService initializeService;
+	private InitializeService initializeService;
 
 	public static void main(String[] args) {
 		//ConfigurableApplicationContext ctx =
