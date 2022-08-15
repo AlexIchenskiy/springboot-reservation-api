@@ -23,14 +23,14 @@ public class AccommodationController {
         System.out.println("Controller initialized\n");
     }
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<List<Accommodation>> getAll() {
         return new ResponseEntity<>(accommodationService.findAll(), HttpStatus.OK);
     }
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<Accommodation> add(@Valid @RequestBody Accommodation accommodation) {
-        return new ResponseEntity<>(accommodationService.save(accommodation), HttpStatus.OK);
+        return new ResponseEntity<>(accommodationService.save(accommodation), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("{id}")
@@ -53,7 +53,7 @@ public class AccommodationController {
     @PutMapping("{id}")
     public ResponseEntity<Accommodation> update(@PathVariable(value = "id") Long id,
                               @Valid @RequestBody Accommodation accommodationDetails) throws AccommodationNotFoundException {
-        return new ResponseEntity<>(accommodationService.update(id, accommodationDetails), HttpStatus.OK);
+        return new ResponseEntity<>(accommodationService.update(id, accommodationDetails), HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("{id}")

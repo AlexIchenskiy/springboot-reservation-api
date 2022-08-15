@@ -21,14 +21,14 @@ public class LocationController {
         this.locationService = locationService;
     }
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<List<Location>> getAll() {
         return new ResponseEntity<>(locationService.findAll(), HttpStatus.OK);
     }
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<Location> add(@Valid @RequestBody Location location) {
-        return new ResponseEntity<>(locationService.save(location), HttpStatus.OK);
+        return new ResponseEntity<>(locationService.save(location), HttpStatus.CREATED);
     }
 
     @GetMapping("{id}")
@@ -38,8 +38,8 @@ public class LocationController {
 
     @PutMapping("{id}")
     public ResponseEntity<Location> update(@PathVariable(value = "id") Long id,
-                                                @Valid @RequestBody Location locationDetails) throws LocationNotFoundException {
-        return new ResponseEntity<>(locationService.update(id, locationDetails), HttpStatus.OK);
+                                                @Valid @RequestBody Location locationDetails) {
+        return new ResponseEntity<>(locationService.update(id, locationDetails), HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("{id}")
