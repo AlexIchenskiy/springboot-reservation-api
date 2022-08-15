@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
@@ -33,13 +34,16 @@ public class InitializeServiceImplEN implements InitializeService {
         Location location1 = new Location("Krk", "Krk island", 51500);
         Location location2 = new Location("Hvar", "Hvar island", 21450);
 
+        File krk = new File("src/main/resources/images/Krk.jpg");
+        File hvar = new File("src/main/resources/images/Hvar.jpg");
+
         Accommodation accommodation1 = new Accommodation("Krk apartments", "Island",
                 "The largest island in Croatia", AccommodationType.APARTMENT,
-                4, 2, "https://www.aurea-krk.com/resources/images/hrvatska-krk/krk-town-2.jpg",
+                4, 2, krk,
                 true, 150.0, location1);
         Accommodation accommodation2 = new Accommodation("Hvar rooms", "Island",
                 "The queen of the Croatian Dalmatian islands", AccommodationType.ROOM,
-                5, 4, "https://www.hvarinfo.com/images/hvar7.jpg",
+                5, 4, hvar,
                 false, 200.0, location2);
 
         Users user = new Users("Regular", "Man", "regular.man@regular-mail.com");

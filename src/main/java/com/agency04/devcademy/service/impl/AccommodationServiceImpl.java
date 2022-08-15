@@ -7,8 +7,6 @@ import com.agency04.devcademy.repository.AccommodationRepository;
 import com.agency04.devcademy.service.AccommodationService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -70,7 +68,7 @@ public class AccommodationServiceImpl implements AccommodationService {
         accommodation.setType(accommodationDetails.getType());
         accommodation.setCategorization(accommodationDetails.getCategorization());
         accommodation.setPersonCount(accommodationDetails.getPersonCount());
-        accommodation.setImageUrl(accommodationDetails.getImageUrl());
+        accommodation.setImage(accommodationDetails.getImage());
         accommodation.setFreeCancelation(accommodationDetails.isFreeCancelation());
         accommodation.setPrice(accommodationDetails.getPrice());
 

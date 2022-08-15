@@ -54,5 +54,5 @@ public class ReservationServiceImpl implements ReservationService {
     public void deleteById(Long id) {
         reservationRepository.deleteById(id);
     }
-    
+
 }

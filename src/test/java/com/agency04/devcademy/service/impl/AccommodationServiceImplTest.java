@@ -22,6 +22,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -56,10 +58,12 @@ class AccommodationServiceImplTest {
 
     @Test
     public void should_find_list_with_one_element() throws Exception {
+        File dubrovnik = new File("src/main/resources/images/Dubrovnik.jpg");
+
         Accommodation accommodation1 = new Accommodation("Sobe u Dubrovniku", "Grad",
                 "Hrvatski kulturni dragulj", AccommodationType.ROOM,
                 5, 4,
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Montage_of_major_Dubrovnik_landmarks.jpg/420px-Montage_of_major_Dubrovnik_landmarks.jpg",
+                dubrovnik,
                 false, 450.0, new Location("A", "B", 1));
 
         Accommodation accommodation = accommodationService.save(accommodation1);

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
@@ -33,15 +34,18 @@ public class InitializeServiceImplHR implements InitializeService {
         Location location1 = new Location("Dubrovnik", "Grad Dubrovnik", 20000);
         Location location2 = new Location("Mljet", "Otok Mljet", 20224);
 
+        File dubrovnik = new File("src/main/resources/images/Dubrovnik.jpg");
+        File mljet = new File("src/main/resources/images/Mljet.jpg");
+
         Accommodation accommodation1 = new Accommodation("Sobe u Dubrovniku", "Grad",
                 "Hrvatski kulturni dragulj", AccommodationType.ROOM,
                 5, 4,
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Montage_of_major_Dubrovnik_landmarks.jpg/420px-Montage_of_major_Dubrovnik_landmarks.jpg",
+                dubrovnik,
                 false, 450.0, location1);
         Accommodation accommodation2 = new Accommodation("Apartmani na Mljetu", "Otok",
                 "Najljepši i najšumovitiji otok Jadrana", AccommodationType.APARTMENT,
                 5, 5,
-                "http://visitdubrovnik.hr/wp-content/uploads/2018/09/shutterstock_1101003428-1024x761.jpg",
+                mljet,
                 false, 250.0, location2);
 
         Users user = new Users("Obican", "Covjek", "obican.covjek@fer.hr");

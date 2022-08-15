@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.File;
 import java.util.List;
 
 @RestController
@@ -36,6 +37,11 @@ public class AccommodationController {
     @GetMapping("{id}")
     public ResponseEntity<Accommodation> getById(@PathVariable(value = "id") Long id) {
         return new ResponseEntity<>(accommodationService.findById(id), HttpStatus.OK);
+    }
+
+    @GetMapping("{id}/image")
+    public ResponseEntity<File> getImageById(@PathVariable(value = "id") Long id) {
+        return new ResponseEntity<>(accommodationService.findById(id).getImage(), HttpStatus.OK);
     }
 
     @GetMapping

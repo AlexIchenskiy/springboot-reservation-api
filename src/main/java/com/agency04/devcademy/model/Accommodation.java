@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.io.File;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Objects;
@@ -31,7 +32,7 @@ public class Accommodation extends Description {
     @Min(1)
     private Integer personCount;
 
-    private String imageUrl;
+    private File image;
 
     private boolean freeCancelation = true;
 
@@ -59,14 +60,14 @@ public class Accommodation extends Description {
     }
 
     public Accommodation(String title, String subtitle, String description,
-                         AccommodationType type, Integer categorization, Integer personCount, String imageUrl,
+                         AccommodationType type, Integer categorization, Integer personCount, File image,
                          boolean freeCancelation, Double price, Location location) {
         super(title, subtitle);
         this.description = description;
         this.type = type;
         this.categorization = categorization;
         this.personCount = personCount;
-        this.imageUrl = imageUrl;
+        this.image = image;
         this.freeCancelation = freeCancelation;
         this.price = price;
         this.location = location;
