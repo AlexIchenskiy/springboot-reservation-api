@@ -3,6 +3,7 @@ package com.agency04.devcademy.controller;
 import com.agency04.devcademy.exception.AccommodationNotFoundException;
 import com.agency04.devcademy.exception.DuplicateLocationException;
 import com.agency04.devcademy.exception.LocationNotFoundException;
+import com.agency04.devcademy.exception.ReservationNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -57,6 +58,17 @@ public class ExceptionController {
         ErrorResponse error = new ErrorResponse("Location already exists", details);
 
         return new ResponseEntity<>(error, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(ReservationNotFoundException.class)
+    public final ResponseEntity<ErrorResponse> reservationNotFoundException(Exception e, WebRequest request) {
+        List<String> details = new ArrayList<>();
+
+        details.add(e.getLocalizedMessage());
+
+        ErrorResponse error = new ErrorResponse("Reservation id does not exist", details);
+
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
 }
