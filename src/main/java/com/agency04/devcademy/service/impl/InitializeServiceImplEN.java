@@ -1,8 +1,7 @@
 package com.agency04.devcademy.service.impl;
 
 import com.agency04.devcademy.model.*;
-import com.agency04.devcademy.repository.AccommodationRepository;
-import com.agency04.devcademy.repository.ReservationHistoryRepository;
+import com.agency04.devcademy.repository.*;
 import com.agency04.devcademy.service.InitializeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,16 @@ import java.util.List;
 public class InitializeServiceImplEN implements InitializeService {
 
     @Autowired
+    private LocationRepository locationRepository;
+
+    @Autowired
     private AccommodationRepository accommodationRepository;
+
+    @Autowired
+    private UsersRepository usersRepository;
+
+    @Autowired
+    private ReservationRepository reservationRepository;
 
     @Autowired
     private ReservationHistoryRepository reservationHistoryRepository;
@@ -37,6 +45,9 @@ public class InitializeServiceImplEN implements InitializeService {
         File krk = new File("src/main/resources/images/Krk.jpg");
         File hvar = new File("src/main/resources/images/Hvar.jpg");
 
+        log.info("\nPreloading " + this.locationRepository.save(location1));
+        log.info("Preloading " + this.locationRepository.save(location2) + "\n");
+
         Accommodation accommodation1 = new Accommodation("Krk apartments", "Island",
                 "The largest island in Croatia", AccommodationType.APARTMENT,
                 4, 2, krk,
@@ -46,18 +57,23 @@ public class InitializeServiceImplEN implements InitializeService {
                 5, 4, hvar,
                 false, 200.0, location2);
 
+        log.info("\nPreloading " + this.accommodationRepository.save(accommodation1));
+        log.info("Preloading " + this.accommodationRepository.save(accommodation2) + "\n");
+
         Users user = new Users("Regular", "Man", "regular.man@regular-mail.com");
+
+        log.info("\nPreloading: " + this.usersRepository.save(user) + "\n");
 
         Reservation reservation = new Reservation(accommodation1,
                 user,
                 ReservationType.TEMPORARY, new Timestamp(new Date(2022, Calendar.AUGUST, 10).getTime()),
                 new Timestamp(new Date(2022, Calendar.AUGUST, 24).getTime()), 2, true);
 
+        log.info("\nPreloading " + this.reservationRepository.save(reservation) + "\n");
+
         ReservationHistory reservationHistory = new ReservationHistory(List.of(reservation),
                 new Timestamp(new Date(2022, Calendar.AUGUST, 10).getTime()), ReservationType.TEMPORARY,
                 ReservationType.TEMPORARY);
-
-        log.info("Preloading " + this.accommodationRepository.save(accommodation2));
 
         log.info("\nPreloading " + this.reservationHistoryRepository.save(reservationHistory) + "\n");
 

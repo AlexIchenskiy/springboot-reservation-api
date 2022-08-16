@@ -43,7 +43,7 @@ public class Accommodation extends Description {
 
     private Timestamp updated;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "location_id")
     @NotNull
     private Location location;

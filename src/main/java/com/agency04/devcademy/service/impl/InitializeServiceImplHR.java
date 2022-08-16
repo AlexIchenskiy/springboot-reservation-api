@@ -1,8 +1,7 @@
 package com.agency04.devcademy.service.impl;
 
 import com.agency04.devcademy.model.*;
-import com.agency04.devcademy.repository.AccommodationRepository;
-import com.agency04.devcademy.repository.ReservationHistoryRepository;
+import com.agency04.devcademy.repository.*;
 import com.agency04.devcademy.service.InitializeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,16 @@ import java.util.List;
 public class InitializeServiceImplHR implements InitializeService {
 
     @Autowired
+    private LocationRepository locationRepository;
+
+    @Autowired
     private AccommodationRepository accommodationRepository;
+
+    @Autowired
+    private UsersRepository usersRepository;
+
+    @Autowired
+    private ReservationRepository reservationRepository;
 
     @Autowired
     private ReservationHistoryRepository reservationHistoryRepository;
@@ -37,6 +45,9 @@ public class InitializeServiceImplHR implements InitializeService {
         File dubrovnik = new File("src/main/resources/images/Dubrovnik.jpg");
         File mljet = new File("src/main/resources/images/Mljet.jpg");
 
+        log.info("\nPreducitavanje " + this.locationRepository.save(location1));
+        log.info("Preducitavanje " + this.locationRepository.save(location2) + "\n");
+
         Accommodation accommodation1 = new Accommodation("Sobe u Dubrovniku", "Grad",
                 "Hrvatski kulturni dragulj", AccommodationType.ROOM,
                 5, 4,
@@ -48,18 +59,23 @@ public class InitializeServiceImplHR implements InitializeService {
                 mljet,
                 false, 250.0, location2);
 
+        log.info("\nPreducitavanje " + this.accommodationRepository.save(accommodation1));
+        log.info("Preducitavanje " + this.accommodationRepository.save(accommodation2) + "\n");
+
         Users user = new Users("Obican", "Covjek", "obican.covjek@fer.hr");
+
+        log.info("\nPreducitavanje " + this.usersRepository.save(user) + "\n");
 
         Reservation reservation = new Reservation(accommodation1,
                 user,
                 ReservationType.TEMPORARY, new Timestamp(new Date(2022, Calendar.AUGUST, 8).getTime()),
                 new Timestamp(new Date(2022, Calendar.SEPTEMBER, 8).getTime()), 3, true);
 
+        log.info("\nPreducitavanje " + this.reservationRepository.save(reservation) + "\n");
+
         ReservationHistory reservationHistory = new ReservationHistory(List.of(reservation),
                 new Timestamp(new Date(2022, Calendar.AUGUST, 8).getTime()), ReservationType.TEMPORARY,
                 ReservationType.TEMPORARY);
-
-        log.info("Preducitavanje " + this.accommodationRepository.save(accommodation2));
 
         log.info("\nPreducitavanje " + this.reservationHistoryRepository.save(reservationHistory) + "\n");
 
