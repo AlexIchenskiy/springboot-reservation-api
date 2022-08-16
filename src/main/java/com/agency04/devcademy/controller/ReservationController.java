@@ -1,6 +1,8 @@
 package com.agency04.devcademy.controller;
 
 import com.agency04.devcademy.DTO.ReservationDTO;
+import com.agency04.devcademy.converter.ReservationFormToReservation;
+import com.agency04.devcademy.form.ReservationForm;
 import com.agency04.devcademy.model.Reservation;
 import com.agency04.devcademy.service.ReservationService;
 import org.modelmapper.ModelMapper;
@@ -30,8 +32,9 @@ public class ReservationController {
     }
 
     @PostMapping
-    public ResponseEntity<Reservation> add(@Valid @RequestBody Reservation reservation) {
-        return new ResponseEntity<>(reservationService.save(reservation), HttpStatus.ACCEPTED);
+    public ResponseEntity<Reservation> add(@Valid @RequestBody ReservationForm reservationForm) {
+        return new ResponseEntity<>(reservationService.save(
+                new ReservationFormToReservation().convert(reservationForm)), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("{id}")
@@ -41,8 +44,9 @@ public class ReservationController {
 
     @PutMapping("{id}")
     public ResponseEntity<ReservationDTO> update(@PathVariable(value = "id") Long id,
-                                              @Valid @RequestBody Reservation reservationDetails) {
-        return new ResponseEntity<>(modelMapper.map(reservationService.update(id, reservationDetails), ReservationDTO.class), HttpStatus.ACCEPTED);
+                                              @Valid @RequestBody ReservationForm reservationForm) {
+        return new ResponseEntity<>(modelMapper.map(reservationService.update(id,
+                new ReservationFormToReservation().convert(reservationForm)), ReservationDTO.class), HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("{id}")

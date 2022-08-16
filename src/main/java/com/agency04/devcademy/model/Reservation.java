@@ -17,28 +17,21 @@ public class Reservation {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "accommodation_id")
-    @NotNull
     private Accommodation accommodation;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "users_id")
-    @NotNull
     private Users users;
 
     @Enumerated(EnumType.ORDINAL)
-    @NotNull
     private ReservationType reservationType;
 
-    @NotNull
     private Timestamp checkIn;
 
-    @NotNull
     private Timestamp checkOut;
 
-    @NotNull
     private Integer personsCount;
 
-    @NotNull
     private Boolean submitted;
 
     private Timestamp created;
