@@ -5,6 +5,7 @@ import com.agency04.devcademy.model.Accommodation;
 import com.agency04.devcademy.model.AccommodationType;
 import com.agency04.devcademy.model.Location;
 import com.agency04.devcademy.repository.AccommodationRepository;
+import com.agency04.devcademy.repository.LocationRepository;
 import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,6 +40,9 @@ class AccommodationServiceImplTest {
     @Autowired
     AccommodationRepository accommodationRepository;
 
+    @Autowired
+    LocationRepository locationRepository;
+
     @Before
     public void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -60,11 +64,13 @@ class AccommodationServiceImplTest {
     public void should_find_list_with_one_element() throws Exception {
         File dubrovnik = new File("src/main/resources/images/Dubrovnik.jpg");
 
+        Location location = locationRepository.save(new Location("A", "B", 1));
+
         Accommodation accommodation1 = new Accommodation("Sobe u Dubrovniku", "Grad",
                 "Hrvatski kulturni dragulj", AccommodationType.ROOM,
                 5, 4,
                 dubrovnik,
-                false, 450.0, new Location("A", "B", 1));
+                false, 450.0, location);
 
         Accommodation accommodation = accommodationService.save(accommodation1);
 
