@@ -9,10 +9,10 @@ import javax.validation.constraints.Size;
 @Setter
 public class UsersForm {
 
-    @Size(max = 200)
+    @Size(max = 200, message = "{Size}")
     private String firstName;
 
-    @Size(max = 200)
+    @Size(max = 200, message = "{Size}")
     private String lastName;
 
     private String email;

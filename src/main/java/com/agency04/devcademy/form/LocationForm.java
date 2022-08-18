@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @Setter
 public class LocationForm extends DescriptionForm {
 
-    @NotNull
+    @NotNull(message = "{NotNull}")
     private Integer postalCode;
 
 }

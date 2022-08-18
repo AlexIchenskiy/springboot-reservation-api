@@ -1,42 +1,39 @@
 package com.agency04.devcademy.form;
 
 import com.agency04.devcademy.model.AccommodationType;
-import com.agency04.devcademy.model.Location;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import java.io.File;
 
 @Getter
 @Setter
 public class AccommodationForm extends DescriptionForm {
 
-    @NotNull
+    @NotNull(message = "{NotNull}")
     private String description;
 
-    @NotNull
+    @NotNull(message = "{NotNull}")
     private AccommodationType type;
 
-    @NotNull
-    @Min(1)
-    @Max(5)
+    @NotNull(message = "{NotNull}")
+    @Min(value = 1, message = "{Min.accommodationForm.categorization}")
+    @Max(value = 5, message = "{Max.accommodationForm.categorization}")
     private Integer categorization;
 
-    @Min(1)
+    @Min(value = 1, message = "{Min.accommodationForm.personCount}")
     private Integer personCount;
 
     private Byte[] image;
 
     private boolean freeCancelation = true;
 
-    @NotNull
+    @NotNull(message = "{NotNull}")
     private Double price;
 
-    @NotNull
+    @NotNull(message = "{NotNull}")
     private Long locationId;
 
 }

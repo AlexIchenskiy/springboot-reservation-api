@@ -1,12 +1,9 @@
 package com.agency04.devcademy.form;
 
-import com.agency04.devcademy.model.Accommodation;
 import com.agency04.devcademy.model.ReservationType;
-import com.agency04.devcademy.model.Users;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -16,28 +13,28 @@ import java.sql.Timestamp;
 @Setter
 public class ReservationForm {
 
-    @NotNull
+    @NotNull(message = "{NotNull}")
     private Long accommodationId;
 
-    @NotNull
+    @NotNull(message = "{NotNull}")
     private Long usersId;
 
-    @NotNull
+    @NotNull(message = "{NotNull}")
     private ReservationType reservationType;
 
-    @Future
-    @NotNull
+    @Future(message = "{Future.reservation}")
+    @NotNull(message = "{NotNull}")
     private Timestamp checkIn;
 
-    @Future
-    @NotNull
+    @Future(message = "{Future.reservation}")
+    @NotNull(message = "{NotNull}")
     private Timestamp checkOut;
 
-    @NotNull
-    @Min(1)
+    @NotNull(message = "{NotNull}")
+    @Min(value = 1, message = "{Min.reservation.personsCount}")
     private Integer personsCount;
 
-    @NotNull
+    @NotNull(message = "{NotNull}")
     private Boolean submitted;
 
 }

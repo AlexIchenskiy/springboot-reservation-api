@@ -3,6 +3,8 @@ package com.agency04.devcademy.controller;
 import com.agency04.devcademy.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -77,6 +79,18 @@ public class ExceptionController {
         ErrorResponse error = new ErrorResponse("User id does not exist", details);
 
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public final ResponseEntity<ErrorResponse> methodArgumentNotValidException(MethodArgumentNotValidException e, WebRequest request) {
+        List<String> details = new ArrayList<>();
+
+        for (FieldError fe : e.getFieldErrors())
+            details.add(fe.getField() + " -> " + fe.getDefaultMessage());
+
+        ErrorResponse error = new ErrorResponse("Provided data is invalid", details);
+
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
 }

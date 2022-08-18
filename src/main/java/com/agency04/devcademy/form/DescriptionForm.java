@@ -13,11 +13,11 @@ import javax.validation.constraints.Size;
 public class DescriptionForm {
 
     @Size(max = 100)
-    @NotNull
+    @NotNull(message = "{NotNull}")
     protected String title;
 
     @Size(max = 150)
-    @NotNull
+    @NotNull(message = "{NotNull}")
     protected String subtitle;
 
 }
