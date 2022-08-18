@@ -71,6 +71,7 @@ public class AccommodationServiceImpl implements AccommodationService {
         accommodation.setImage(accommodationDetails.getImage());
         accommodation.setFreeCancelation(accommodationDetails.isFreeCancelation());
         accommodation.setPrice(accommodationDetails.getPrice());
+        accommodation.setLocation(accommodationDetails.getLocation());
 
         return accommodationRepository.save(accommodation);
     }

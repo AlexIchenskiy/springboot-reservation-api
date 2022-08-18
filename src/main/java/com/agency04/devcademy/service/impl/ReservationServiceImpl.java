@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class ReservationServiceImpl implements ReservationService {
 
-    ReservationRepository reservationRepository;
+    private ReservationRepository reservationRepository;
 
     public ReservationServiceImpl(@Qualifier("reservationRepository") ReservationRepository reservationRepository) {
         this.reservationRepository = reservationRepository;
@@ -43,9 +43,9 @@ public class ReservationServiceImpl implements ReservationService {
         reservation.setUsers(reservationDetails.getUsers());
         reservation.setReservationType(reservationDetails.getReservationType());
         reservation.setCheckIn(reservationDetails.getCheckIn());
-        reservation.setCheckOut(reservation.getCheckOut());
-        reservation.setPersonsCount(reservation.getPersonsCount());
-        reservation.setSubmitted(reservation.getSubmitted());
+        reservation.setCheckOut(reservationDetails.getCheckOut());
+        reservation.setPersonsCount(reservationDetails.getPersonsCount());
+        reservation.setSubmitted(reservationDetails.getSubmitted());
 
         return reservationRepository.save(reservation);
     }

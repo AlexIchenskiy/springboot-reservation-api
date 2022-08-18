@@ -17,9 +17,9 @@ import java.util.List;
 public class LocationServiceImpl implements LocationService {
 
     @Autowired
-    AccommodationService accommodationService;
+    private AccommodationService accommodationService;
 
-    LocationRepository locationRepository;
+    private LocationRepository locationRepository;
 
     public LocationServiceImpl(@Qualifier("locationRepository") LocationRepository locationRepository) {
         this.locationRepository = locationRepository;

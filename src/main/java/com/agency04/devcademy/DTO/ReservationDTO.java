@@ -1,8 +1,6 @@
 package com.agency04.devcademy.DTO;
 
-import com.agency04.devcademy.model.Accommodation;
 import com.agency04.devcademy.model.ReservationType;
-import com.agency04.devcademy.model.Users;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,11 +10,9 @@ import java.sql.Timestamp;
 @Setter
 public class ReservationDTO {
 
-    private Long id;
+    private AccommodationDTO accommodation;
 
-    private Accommodation accommodation;
-
-    private Users users;
+    private UsersDTO users;
 
     private ReservationType reservationType;
 

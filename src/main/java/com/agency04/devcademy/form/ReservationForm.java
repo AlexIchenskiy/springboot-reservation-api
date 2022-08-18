@@ -6,6 +6,9 @@ import com.agency04.devcademy.model.Users;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
@@ -13,24 +16,25 @@ import java.sql.Timestamp;
 @Setter
 public class ReservationForm {
 
-    private Long id;
+    @NotNull
+    private Long accommodationId;
 
     @NotNull
-    private Accommodation accommodation;
-
-    @NotNull
-    private Users users;
+    private Long usersId;
 
     @NotNull
     private ReservationType reservationType;
 
+    @Future
     @NotNull
     private Timestamp checkIn;
 
+    @Future
     @NotNull
     private Timestamp checkOut;
 
     @NotNull
+    @Min(1)
     private Integer personsCount;
 
     @NotNull

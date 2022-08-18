@@ -1,8 +1,11 @@
 package com.agency04.devcademy.controller;
 
-import com.agency04.devcademy.exception.LocationNotFoundException;
+import com.agency04.devcademy.DTO.LocationDTO;
+import com.agency04.devcademy.converter.LocationFormToLocation;
+import com.agency04.devcademy.form.LocationForm;
 import com.agency04.devcademy.model.Location;
 import com.agency04.devcademy.service.LocationService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +18,11 @@ import java.util.List;
 @RequestMapping("/api/location")
 public class LocationController {
 
+    private final ModelMapper modelMapper = new ModelMapper();
+
     private final LocationService locationService;
+
+    private final LocationFormToLocation formToLocation = new LocationFormToLocation();
 
     public LocationController(@Qualifier("locationServiceImpl") LocationService locationService) {
         this.locationService = locationService;
@@ -27,8 +34,9 @@ public class LocationController {
     }
 
     @PostMapping
-    public ResponseEntity<Location> add(@Valid @RequestBody Location location) {
-        return new ResponseEntity<>(locationService.save(location), HttpStatus.CREATED);
+    public ResponseEntity<LocationDTO> add(@Valid @RequestBody LocationForm locationForm) {
+        return new ResponseEntity<>(modelMapper.map(locationService.save(formToLocation.convert(locationForm)),
+                LocationDTO.class), HttpStatus.CREATED);
     }
 
     @GetMapping("{id}")
@@ -37,9 +45,10 @@ public class LocationController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Location> update(@PathVariable(value = "id") Long id,
-                                                @Valid @RequestBody Location locationDetails) {
-        return new ResponseEntity<>(locationService.update(id, locationDetails), HttpStatus.ACCEPTED);
+    public ResponseEntity<LocationDTO> update(@PathVariable(value = "id") Long id,
+                                              @Valid @RequestBody LocationForm locationDetails) {
+        return new ResponseEntity<>(modelMapper.map(locationService.update(id,
+                formToLocation.convert(locationDetails)), LocationDTO.class), HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("{id}")

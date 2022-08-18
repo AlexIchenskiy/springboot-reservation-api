@@ -3,9 +3,6 @@ package com.agency04.devcademy.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -24,29 +21,23 @@ public class Accommodation extends Description {
     @Enumerated(EnumType.ORDINAL)
     private AccommodationType type;
 
-    @NotNull
-    @Min(1)
-    @Max(5)
     private Integer categorization;
 
-    @Min(1)
     private Integer personCount;
 
     private File image;
 
     private boolean freeCancelation = true;
 
-    @NotNull
     private Double price;
+
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinColumn(name = "location_id")
+    private Location location;
 
     private Timestamp created;
 
     private Timestamp updated;
-
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    @JoinColumn(name = "location_id")
-    @NotNull
-    private Location location;
 
     public Location getLocation() {
         return location;

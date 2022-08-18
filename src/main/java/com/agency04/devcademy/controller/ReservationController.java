@@ -6,6 +6,7 @@ import com.agency04.devcademy.form.ReservationForm;
 import com.agency04.devcademy.model.Reservation;
 import com.agency04.devcademy.service.ReservationService;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,9 @@ public class ReservationController {
 
     private final ReservationService reservationService;
 
+    @Autowired
+    private ReservationFormToReservation formToReservation;
+
     public ReservationController(@Qualifier("reservationServiceImpl") ReservationService reservationService) {
         this.reservationService = reservationService;
     }
@@ -32,9 +36,9 @@ public class ReservationController {
     }
 
     @PostMapping
-    public ResponseEntity<Reservation> add(@Valid @RequestBody ReservationForm reservationForm) {
-        return new ResponseEntity<>(reservationService.save(
-                new ReservationFormToReservation().convert(reservationForm)), HttpStatus.ACCEPTED);
+    public ResponseEntity<ReservationDTO> add(@Valid @RequestBody ReservationForm reservationForm) {
+        return new ResponseEntity<>(modelMapper.map(reservationService.save(
+                formToReservation.convert(reservationForm)), ReservationDTO.class), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("{id}")
@@ -46,7 +50,7 @@ public class ReservationController {
     public ResponseEntity<ReservationDTO> update(@PathVariable(value = "id") Long id,
                                               @Valid @RequestBody ReservationForm reservationForm) {
         return new ResponseEntity<>(modelMapper.map(reservationService.update(id,
-                new ReservationFormToReservation().convert(reservationForm)), ReservationDTO.class), HttpStatus.ACCEPTED);
+                formToReservation.convert(reservationForm)), ReservationDTO.class), HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("{id}")
