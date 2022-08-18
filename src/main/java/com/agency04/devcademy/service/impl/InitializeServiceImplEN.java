@@ -42,20 +42,15 @@ public class InitializeServiceImplEN implements InitializeService {
         Location location1 = new Location("Krk", "Krk island", 51500);
         Location location2 = new Location("Hvar", "Hvar island", 21450);
 
-        File krk = new File("src/main/resources/images/Krk.jpg");
-        File hvar = new File("src/main/resources/images/Hvar.jpg");
-
         log.info("\nPreloading " + this.locationRepository.save(location1));
         log.info("Preloading " + this.locationRepository.save(location2) + "\n");
 
         Accommodation accommodation1 = new Accommodation("Krk apartments", "Island",
                 "The largest island in Croatia", AccommodationType.APARTMENT,
-                4, 2, krk,
-                true, 150.0, location1);
+                4, 2, true, 150.0, location1);
         Accommodation accommodation2 = new Accommodation("Hvar rooms", "Island",
                 "The queen of the Croatian Dalmatian islands", AccommodationType.ROOM,
-                5, 4, hvar,
-                false, 200.0, location2);
+                5, 4, false, 200.0, location2);
 
         log.info("\nPreloading " + this.accommodationRepository.save(accommodation1));
         log.info("Preloading " + this.accommodationRepository.save(accommodation2) + "\n");

@@ -2,7 +2,6 @@ package com.agency04.devcademy.converter;
 
 import com.agency04.devcademy.form.AccommodationForm;
 import com.agency04.devcademy.model.Accommodation;
-import com.agency04.devcademy.repository.LocationRepository;
 import com.agency04.devcademy.service.impl.LocationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;

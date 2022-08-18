@@ -1,9 +1,9 @@
 package com.agency04.devcademy.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.io.File;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Objects;
@@ -25,7 +25,9 @@ public class Accommodation extends Description {
 
     private Integer personCount;
 
-    private File image;
+    @JsonIgnore
+    @Lob
+    private Byte[] image;
 
     private boolean freeCancelation = true;
 
@@ -50,8 +52,21 @@ public class Accommodation extends Description {
     public Accommodation() {
     }
 
+    public Accommodation(String title, String subtitle, String description, AccommodationType type,
+                         Integer categorization, Integer personCount, boolean freeCancelation, Double price,
+                         Location location) {
+        super(title, subtitle);
+        this.description = description;
+        this.type = type;
+        this.categorization = categorization;
+        this.personCount = personCount;
+        this.freeCancelation = freeCancelation;
+        this.price = price;
+        this.location = location;
+    }
+
     public Accommodation(String title, String subtitle, String description,
-                         AccommodationType type, Integer categorization, Integer personCount, File image,
+                         AccommodationType type, Integer categorization, Integer personCount, Byte[] image,
                          boolean freeCancelation, Double price, Location location) {
         super(title, subtitle);
         this.description = description;

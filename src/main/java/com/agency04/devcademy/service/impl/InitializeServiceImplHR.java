@@ -42,22 +42,15 @@ public class InitializeServiceImplHR implements InitializeService {
         Location location1 = new Location("Dubrovnik", "Grad Dubrovnik", 20000);
         Location location2 = new Location("Mljet", "Otok Mljet", 20224);
 
-        File dubrovnik = new File("src/main/resources/images/Dubrovnik.jpg");
-        File mljet = new File("src/main/resources/images/Mljet.jpg");
-
         log.info("\nPreducitavanje " + this.locationRepository.save(location1));
         log.info("Preducitavanje " + this.locationRepository.save(location2) + "\n");
 
         Accommodation accommodation1 = new Accommodation("Sobe u Dubrovniku", "Grad",
                 "Hrvatski kulturni dragulj", AccommodationType.ROOM,
-                5, 4,
-                dubrovnik,
-                false, 450.0, location1);
+                5, 4, false, 450.0, location1);
         Accommodation accommodation2 = new Accommodation("Apartmani na Mljetu", "Otok",
                 "Najljepši i najšumovitiji otok Jadrana", AccommodationType.APARTMENT,
-                5, 5,
-                mljet,
-                false, 250.0, location2);
+                5, 5, false, 250.0, location2);
 
         log.info("\nPreducitavanje " + this.accommodationRepository.save(accommodation1));
         log.info("Preducitavanje " + this.accommodationRepository.save(accommodation2) + "\n");

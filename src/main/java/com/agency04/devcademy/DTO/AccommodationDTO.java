@@ -1,6 +1,7 @@
 package com.agency04.devcademy.DTO;
 
 import com.agency04.devcademy.model.AccommodationType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,7 +19,8 @@ public class AccommodationDTO extends DescriptionDTO {
 
     private Integer personCount;
 
-    private File image;
+    @JsonIgnore
+    private Byte[] image;
 
     private boolean freeCancelation = true;
 

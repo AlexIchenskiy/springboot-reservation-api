@@ -11,9 +11,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -50,7 +51,8 @@ public class AccommodationController {
     }
 
     @GetMapping("{id}/image")
-    public ResponseEntity<File> getImageById(@PathVariable(value = "id") Long id) {
+    @ResponseBody
+    public ResponseEntity<Byte[]> getImageById(@PathVariable(value = "id") Long id) {
         return new ResponseEntity<>(accommodationService.findById(id).getImage(), HttpStatus.OK);
     }
 
@@ -71,6 +73,14 @@ public class AccommodationController {
                                                    @Valid @RequestBody AccommodationForm accommodationDetails) {
         return new ResponseEntity<>(modelMapper.map(accommodationService.update(id,
                 formToAccommodation.convert(accommodationDetails)), AccommodationDTO.class), HttpStatus.ACCEPTED);
+    }
+
+    @PutMapping("{id}/image")
+    public ResponseEntity<String> updateImage(@PathVariable(value = "id") Long id,
+                                                        @RequestParam("image") MultipartFile multipartFile)
+            throws IOException {
+        accommodationService.updateImage(id, multipartFile);
+        return new ResponseEntity<>("Image uploaded to accommodation with id " + id, HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("{id}")

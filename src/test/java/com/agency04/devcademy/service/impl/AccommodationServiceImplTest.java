@@ -69,7 +69,6 @@ class AccommodationServiceImplTest {
         Accommodation accommodation1 = new Accommodation("Sobe u Dubrovniku", "Grad",
                 "Hrvatski kulturni dragulj", AccommodationType.ROOM,
                 5, 4,
-                dubrovnik,
                 false, 450.0, location);
 
         Accommodation accommodation = accommodationService.save(accommodation1);

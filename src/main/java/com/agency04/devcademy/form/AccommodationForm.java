@@ -29,7 +29,7 @@ public class AccommodationForm extends DescriptionForm {
     @Min(1)
     private Integer personCount;
 
-    private File image;
+    private Byte[] image;
 
     private boolean freeCancelation = true;
 
