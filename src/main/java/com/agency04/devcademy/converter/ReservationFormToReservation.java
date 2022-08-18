@@ -2,10 +2,10 @@ package com.agency04.devcademy.converter;
 
 import com.agency04.devcademy.form.ReservationForm;
 import com.agency04.devcademy.model.Reservation;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
-@ComponentScan
+@Component
 public class ReservationFormToReservation implements Converter<ReservationForm, Reservation> {
 
     public Reservation convert(ReservationForm reservationDetails) {
