@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import javax.annotation.PostConstruct;
 
 @SpringBootApplication
-@EnableJpaRepositories("com.agency04.devcademy")
+@EnableJpaRepositories("com.agency04.devcademy.repository")
 public class ApartmentReservationSystemApplication {
 
 	@Autowired

@@ -16,7 +16,7 @@ public class ReservationHistory {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "reservation_id")
     @NotNull
     private List<Reservation> reservationList;

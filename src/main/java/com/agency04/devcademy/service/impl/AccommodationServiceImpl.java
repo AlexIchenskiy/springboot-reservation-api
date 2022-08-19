@@ -7,10 +7,10 @@ import com.agency04.devcademy.repository.AccommodationRepository;
 import com.agency04.devcademy.service.AccommodationService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
@@ -70,9 +70,30 @@ public class AccommodationServiceImpl implements AccommodationService {
         accommodation.setType(accommodationDetails.getType());
         accommodation.setCategorization(accommodationDetails.getCategorization());
         accommodation.setPersonCount(accommodationDetails.getPersonCount());
-        accommodation.setImageUrl(accommodationDetails.getImageUrl());
+        accommodation.setImage(accommodationDetails.getImage());
         accommodation.setFreeCancelation(accommodationDetails.isFreeCancelation());
         accommodation.setPrice(accommodationDetails.getPrice());
+        accommodation.setLocation(accommodationDetails.getLocation());
+
+        return accommodationRepository.save(accommodation);
+    }
+
+    @Override
+    public Accommodation updateImage(Long id, MultipartFile multipartFile) throws IOException {
+        Accommodation accommodation = accommodationRepository.findById(id)
+                .orElseThrow(() -> new AccommodationNotFoundException(id));
+
+
+        // creating a byte array image from file
+        Byte[] byteObjects = new Byte[multipartFile.getBytes().length];
+
+        int i = 0;
+
+        for (byte b : multipartFile.getBytes()) {
+            byteObjects[i++] = b;
+        }
+
+        accommodation.setImage(byteObjects);
 
         return accommodationRepository.save(accommodation);
     }

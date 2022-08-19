@@ -1,21 +1,32 @@
 package com.agency04.devcademy.controller;
 
-import com.agency04.devcademy.exception.AccommodationNotFoundException;
+import com.agency04.devcademy.DTO.AccommodationDTO;
+import com.agency04.devcademy.converter.AccommodationFormToAccommodation;
+import com.agency04.devcademy.form.AccommodationForm;
 import com.agency04.devcademy.model.Accommodation;
 import com.agency04.devcademy.service.impl.AccommodationServiceImpl;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/accommodation")
 public class AccommodationController {
 
+    private final ModelMapper modelMapper = new ModelMapper();
+
     private final AccommodationServiceImpl accommodationService;
+
+    @Autowired
+    private AccommodationFormToAccommodation formToAccommodation;
 
     public AccommodationController(@Qualifier("accommodationServiceImpl") AccommodationServiceImpl accommodationService) {
         this.accommodationService = accommodationService;
@@ -23,19 +34,26 @@ public class AccommodationController {
         System.out.println("Controller initialized\n");
     }
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<List<Accommodation>> getAll() {
         return new ResponseEntity<>(accommodationService.findAll(), HttpStatus.OK);
     }
 
-    @PostMapping()
-    public ResponseEntity<Accommodation> add(@Valid @RequestBody Accommodation accommodation) {
-        return new ResponseEntity<>(accommodationService.save(accommodation), HttpStatus.OK);
+    @PostMapping
+    public ResponseEntity<AccommodationDTO> add(@Valid @RequestBody AccommodationForm accommodationForm) {
+        return new ResponseEntity<>(modelMapper.map(accommodationService.save(formToAccommodation.convert(accommodationForm)),
+                AccommodationDTO.class), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("{id}")
     public ResponseEntity<Accommodation> getById(@PathVariable(value = "id") Long id) {
         return new ResponseEntity<>(accommodationService.findById(id), HttpStatus.OK);
+    }
+
+    @GetMapping("{id}/image")
+    @ResponseBody
+    public ResponseEntity<Byte[]> getImageById(@PathVariable(value = "id") Long id) {
+        return new ResponseEntity<>(accommodationService.findById(id).getImage(), HttpStatus.OK);
     }
 
     @GetMapping
@@ -51,9 +69,18 @@ public class AccommodationController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Accommodation> update(@PathVariable(value = "id") Long id,
-                              @Valid @RequestBody Accommodation accommodationDetails) throws AccommodationNotFoundException {
-        return new ResponseEntity<>(accommodationService.update(id, accommodationDetails), HttpStatus.OK);
+    public ResponseEntity<AccommodationDTO> update(@PathVariable(value = "id") Long id,
+                                                   @Valid @RequestBody AccommodationForm accommodationDetails) {
+        return new ResponseEntity<>(modelMapper.map(accommodationService.update(id,
+                formToAccommodation.convert(accommodationDetails)), AccommodationDTO.class), HttpStatus.ACCEPTED);
+    }
+
+    @PutMapping("{id}/image")
+    public ResponseEntity<String> updateImage(@PathVariable(value = "id") Long id,
+                                                        @RequestParam("image") MultipartFile multipartFile)
+            throws IOException {
+        accommodationService.updateImage(id, multipartFile);
+        return new ResponseEntity<>("Image uploaded to accommodation with id " + id, HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("{id}")
