@@ -3,6 +3,7 @@ package com.agency04.devcademy.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -16,18 +17,18 @@ public class Users {
     private Long id;
 
     @Size(max = 200)
+    @NotNull
     private String firstName;
 
     @Size(max = 200)
+    @NotNull
     private String lastName;
 
+    @NotNull
     private String email;
 
+    @NotNull
     private String password;
-
-    private boolean enabled;
-
-    private boolean tokenExpired;
 
     private Timestamp created;
 
