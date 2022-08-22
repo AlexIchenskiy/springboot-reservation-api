@@ -23,6 +23,12 @@ public class Users {
 
     private String email;
 
+    private String password;
+
+    private boolean enabled;
+
+    private boolean tokenExpired;
+
     private Timestamp created;
 
     private Timestamp updated;
@@ -30,10 +36,11 @@ public class Users {
     public Users() {
     }
 
-    public Users(String firstName, String lastName, String email) {
+    public Users(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.password = password;
     }
 
     @PrePersist

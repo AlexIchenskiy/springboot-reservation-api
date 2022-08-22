@@ -42,8 +42,8 @@ public class InitializeServiceImplEN implements InitializeService {
         Location location1 = new Location("Krk", "Krk island", 51500);
         Location location2 = new Location("Hvar", "Hvar island", 21450);
 
-        log.info("\nPreloading " + this.locationRepository.save(location1));
-        log.info("Preloading " + this.locationRepository.save(location2) + "\n");
+        log.info("Preloading " + this.locationRepository.save(location1));
+        log.info("Preloading " + this.locationRepository.save(location2));
 
         Accommodation accommodation1 = new Accommodation("Krk apartments", "Island",
                 "The largest island in Croatia", AccommodationType.APARTMENT,
@@ -52,25 +52,30 @@ public class InitializeServiceImplEN implements InitializeService {
                 "The queen of the Croatian Dalmatian islands", AccommodationType.ROOM,
                 5, 4, false, 200.0, location2);
 
-        log.info("\nPreloading " + this.accommodationRepository.save(accommodation1));
-        log.info("Preloading " + this.accommodationRepository.save(accommodation2) + "\n");
+        log.info("Preloading " + this.accommodationRepository.save(accommodation1));
+        log.info("Preloading " + this.accommodationRepository.save(accommodation2));
 
-        Users user = new Users("Regular", "Man", "regular.man@regular-mail.com");
+        Users user1 = new Users("Regular", "Man", "regular.man@regular-mail.com",
+                "password");
 
-        log.info("\nPreloading: " + this.usersRepository.save(user) + "\n");
+        Users user2 = new Users("Regular", "Admin", "regular.admin@regular-mail.com",
+                "admin");
+
+        log.info("Preloading: " + this.usersRepository.save(user1));
+        log.info("Preloading: " + this.usersRepository.save(user2));
 
         Reservation reservation = new Reservation(accommodation1,
-                user,
+                user1,
                 ReservationType.TEMPORARY, new Timestamp(new Date(2023, Calendar.AUGUST, 10).getTime()),
                 new Timestamp(new Date(2023, Calendar.AUGUST, 24).getTime()), 2, true);
 
-        log.info("\nPreloading " + this.reservationRepository.save(reservation) + "\n");
+        log.info("Preloading " + this.reservationRepository.save(reservation));
 
         ReservationHistory reservationHistory = new ReservationHistory(List.of(reservation),
                 new Timestamp(new Date(2023, Calendar.AUGUST, 10).getTime()), ReservationType.TEMPORARY,
                 ReservationType.TEMPORARY);
 
-        log.info("\nPreloading " + this.reservationHistoryRepository.save(reservationHistory) + "\n");
+        log.info("Preloading " + this.reservationHistoryRepository.save(reservationHistory));
 
         List<Accommodation> listOfAccommodations = accommodationRepository.findByCategorizationAndPersonCountGreaterThanEqual(3, 5);
 

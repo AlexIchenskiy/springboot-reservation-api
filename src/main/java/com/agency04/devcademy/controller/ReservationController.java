@@ -16,7 +16,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/reservations")
+@RequestMapping("/reservation")
 public class ReservationController {
 
     private final ModelMapper modelMapper = new ModelMapper();
