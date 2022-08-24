@@ -1,27 +1,27 @@
 package com.agency04.devcademy.util;
 
 import com.agency04.devcademy.form.LoginForm;
-import io.jsonwebtoken.SignatureAlgorithm;
+import com.agency04.devcademy.service.impl.UsersServiceImpl;
+import io.jsonwebtoken.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Function;
 
 @Component
 public class JwtTokenUtil {
+
+    @Autowired
+    private UsersServiceImpl usersService;
 
     public static final long JWT_TOKEN_VALIDITY = 5 * 60;
 
     @Value("${jwt.secret}")
     private String secret;
 
-    public String getEmailFromToken(String token) {
+    public String getUsernameFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
     }
 
@@ -43,19 +43,19 @@ public class JwtTokenUtil {
     }
 
     public String generateToken(LoginForm loginDetails) {
-        Map<String, Object> claims = new HashMap<>();
-        return doGenerateToken(claims, loginDetails.getEmail());
-    }
+        Claims claims = Jwts.claims().setSubject(loginDetails.getEmail());
+        claims.put("role", usersService.findByEmail(loginDetails.getEmail()).getAuthorities());
 
-    private String doGenerateToken(Map<String, Object> claims, String subject) {
-
-        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
+        return Jwts.builder()
+                .setClaims(claims)
                 .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
-                .signWith(SignatureAlgorithm.HS512, secret).compact();
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .signWith(SignatureAlgorithm.HS512, secret)
+                .compact();
     }
 
     public Boolean validateToken(String token, LoginForm loginDetails) {
-        final String username = getEmailFromToken(token);
+        final String username = getUsernameFromToken(token);
         return (username.equals(loginDetails.getEmail()) && !isTokenExpired(token));
     }
 

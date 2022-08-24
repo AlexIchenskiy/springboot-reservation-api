@@ -6,6 +6,7 @@ import com.agency04.devcademy.service.InitializeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -13,6 +14,7 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @Service
@@ -56,10 +58,11 @@ public class InitializeServiceImplEN implements InitializeService {
         log.info("Preloading " + this.accommodationRepository.save(accommodation2));
 
         Users user1 = new Users("Regular", "Man", "regular.man@regular-mail.com",
-                "password");
+                "password", Set.of(new SimpleGrantedAuthority("USER")));
 
         Users user2 = new Users("Regular", "Admin", "regular.admin@regular-mail.com",
-                "admin");
+                "admin",
+                Set.of(new SimpleGrantedAuthority("USER"), new SimpleGrantedAuthority("ADMIN")));
 
         log.info("Preloading: " + this.usersRepository.save(user1));
         log.info("Preloading: " + this.usersRepository.save(user2));

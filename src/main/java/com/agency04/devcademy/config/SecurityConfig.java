@@ -1,29 +1,37 @@
 package com.agency04.devcademy.config;
 
 import com.agency04.devcademy.exception.AuthException;
+import com.agency04.devcademy.filter.JwtAuthorizationFilter;
+import com.agency04.devcademy.service.impl.UsersServiceImpl;
+import com.agency04.devcademy.util.PasswordEncoderTEST;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private UsersServiceImpl usersService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/reservation").hasRole("USER")
-                .antMatchers("/api/**").hasRole("USER")
-                .antMatchers("/api").hasRole("USER")
-                .antMatchers("/reservation/confirm").hasRole("ADMIN")
-                .antMatchers("/login").permitAll()
+                .antMatchers("/reservation").hasAnyAuthority("ROLE_USER")
+                .antMatchers("/api/**").hasAuthority("USER")
+                .antMatchers("/api").hasAuthority("USER")
+                .antMatchers("/reservation/confirm").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST, "/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(new AuthException())
@@ -34,18 +42,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("user1").password("{noop}user1pass")
-                .roles("USER")
-                .and()
-                .withUser("user2").password("{noop}user2pass")
-                .roles("ADMIN");
+        auth.userDetailsService(usersService).passwordEncoder(passwordEncoderTEST());
     }
 
     @Override
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
+    }
+
+    @Bean
+    public PasswordEncoderTEST passwordEncoderTEST() {
+        return new PasswordEncoderTEST();
     }
 
     /*@Bean

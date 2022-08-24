@@ -1,14 +1,19 @@
 package com.agency04.devcademy.service.impl;
 
+import com.agency04.devcademy.exception.AuthException;
 import com.agency04.devcademy.exception.UsersNotFoundException;
 import com.agency04.devcademy.model.Users;
 import com.agency04.devcademy.repository.UsersRepository;
 import com.agency04.devcademy.service.UsersService;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UsersServiceImpl implements UsersService {
@@ -39,6 +44,16 @@ public class UsersServiceImpl implements UsersService {
     public Users findByEmail(String email) {
         return usersRepository.findByEmail(email)
                 .orElseThrow(() -> new UsersNotFoundException(email));
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Users userDetails = usersRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException(username));
+
+        Set<GrantedAuthority> authoritySet = userDetails.getAuthorities();
+
+        return new User(userDetails.getEmail(), userDetails.getPassword(), authoritySet);
     }
 
     @Override

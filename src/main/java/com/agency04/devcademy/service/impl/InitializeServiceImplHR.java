@@ -6,6 +6,7 @@ import com.agency04.devcademy.service.InitializeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -13,6 +14,7 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @Service
@@ -55,8 +57,10 @@ public class InitializeServiceImplHR implements InitializeService {
         log.info("\nPreducitavanje " + this.accommodationRepository.save(accommodation1));
         log.info("Preducitavanje " + this.accommodationRepository.save(accommodation2) + "\n");
 
-        Users user1 = new Users("Obican", "Covjek", "obican.covjek@fer.hr", "lozinka");
-        Users user2 = new Users("Obican", "Admin", "obican.admin@fer.hr", "admin");
+        Users user1 = new Users("Obican", "Covjek", "obican.covjek@fer.hr", "lozinka",
+                Set.of(new SimpleGrantedAuthority("USER")));
+        Users user2 = new Users("Obican", "Admin", "obican.admin@fer.hr", "admin",
+                Set.of(new SimpleGrantedAuthority("USER"), new SimpleGrantedAuthority("ADMIN")));
 
         log.info("Preducitavanje " + this.usersRepository.save(user1));
         log.info("Preducitavanje " + this.usersRepository.save(user2));

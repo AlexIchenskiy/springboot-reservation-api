@@ -3,8 +3,6 @@ package com.agency04.devcademy.controller;
 import com.agency04.devcademy.form.LoginForm;
 import com.agency04.devcademy.service.impl.LoginServiceImpl;
 import com.agency04.devcademy.util.JwtTokenUtil;
-import io.jsonwebtoken.JwtBuilder;
-import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
