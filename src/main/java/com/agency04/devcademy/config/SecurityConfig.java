@@ -27,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.httpBasic()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/reservation").hasAnyAuthority("ROLE_USER")
+                .antMatchers("/reservation").hasAuthority("USER")
                 .antMatchers("/api/**").hasAuthority("USER")
                 .antMatchers("/api").hasAuthority("USER")
                 .antMatchers("/reservation/confirm").hasAuthority("ADMIN")

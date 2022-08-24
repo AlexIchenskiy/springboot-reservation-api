@@ -31,7 +31,7 @@ public class Reservation {
 
     private Integer personsCount;
 
-    private Boolean submitted;
+    private Boolean submitted = false;
 
     private Timestamp created;
 

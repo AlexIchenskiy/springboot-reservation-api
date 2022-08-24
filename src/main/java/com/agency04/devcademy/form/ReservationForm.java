@@ -34,7 +34,4 @@ public class ReservationForm {
     @Min(value = 1, message = "{Min.reservation.personsCount}")
     private Integer personsCount;
 
-    @NotNull(message = "{NotNull}")
-    private Boolean submitted;
-
 }

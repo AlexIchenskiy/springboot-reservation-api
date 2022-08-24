@@ -54,10 +54,9 @@ public class ReservationController {
     }
 
     @PutMapping("/confirm/{id}")
-    public ResponseEntity<ReservationDTO> confirm(@PathVariable(value = "id") Long id,
-                                                 @Valid @RequestBody ReservationForm reservationForm) {
-        return new ResponseEntity<>(modelMapper.map(reservationService.confirm(id,
-                formToReservation.convert(reservationForm)), ReservationDTO.class), HttpStatus.ACCEPTED);
+    public ResponseEntity<ReservationDTO> confirm(@PathVariable(value = "id") Long id) {
+        return new ResponseEntity<>(modelMapper.map(reservationService.confirm(id), ReservationDTO.class),
+                HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("{id}")

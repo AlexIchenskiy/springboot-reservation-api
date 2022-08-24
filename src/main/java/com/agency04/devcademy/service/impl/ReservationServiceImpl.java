@@ -55,19 +55,13 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public Reservation confirm(Long id, Reservation reservationDetails) {
+    public Reservation confirm(Long id) {
         Reservation reservation = reservationRepository.findById(id)
                 .orElseThrow(() -> new ReservationNotFoundException(id));
 
-        reservation.setAccommodation(reservationDetails.getAccommodation());
-        reservation.setUsers(reservationDetails.getUsers());
-        reservation.setReservationType(reservationDetails.getReservationType());
-        reservation.setCheckIn(reservationDetails.getCheckIn());
-        reservation.setCheckOut(reservationDetails.getCheckOut());
-        reservation.setPersonsCount(reservationDetails.getPersonsCount());
         reservation.setSubmitted(true);
 
-        reservationHistoryService.add(reservationDetails);
+        reservationHistoryService.add(reservation);
 
         return reservationRepository.save(reservation);
     }

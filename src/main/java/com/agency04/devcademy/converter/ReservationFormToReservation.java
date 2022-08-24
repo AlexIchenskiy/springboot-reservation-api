@@ -26,7 +26,7 @@ public class ReservationFormToReservation implements Converter<ReservationForm, 
         reservation.setCheckIn(reservationDetails.getCheckIn());
         reservation.setCheckOut(reservationDetails.getCheckOut());
         reservation.setPersonsCount(reservationDetails.getPersonsCount());
-        reservation.setSubmitted(reservationDetails.getSubmitted());
+        reservation.setSubmitted(false);
 
         return reservation;
     }
