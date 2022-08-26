@@ -10,6 +10,7 @@ public interface ReservationService {
     List<Reservation> findAll();
     Reservation findById(Long id);
     Reservation update(Long id, Reservation reservationDetails);
+    Reservation confirm(Long id);
     void deleteById(Long id);
 
 }

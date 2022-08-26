@@ -16,7 +16,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/reservations")
+@RequestMapping("/reservation")
 public class ReservationController {
 
     private final ModelMapper modelMapper = new ModelMapper();
@@ -51,6 +51,12 @@ public class ReservationController {
                                               @Valid @RequestBody ReservationForm reservationForm) {
         return new ResponseEntity<>(modelMapper.map(reservationService.update(id,
                 formToReservation.convert(reservationForm)), ReservationDTO.class), HttpStatus.ACCEPTED);
+    }
+
+    @PutMapping("/confirm/{id}")
+    public ResponseEntity<ReservationDTO> confirm(@PathVariable(value = "id") Long id) {
+        return new ResponseEntity<>(modelMapper.map(reservationService.confirm(id), ReservationDTO.class),
+                HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("{id}")

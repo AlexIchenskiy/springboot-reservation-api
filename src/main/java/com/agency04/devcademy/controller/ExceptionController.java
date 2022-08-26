@@ -1,6 +1,7 @@
 package com.agency04.devcademy.controller;
 
 import com.agency04.devcademy.exception.*;
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
+import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,6 +93,28 @@ public class ExceptionController {
         ErrorResponse error = new ErrorResponse("Provided data is invalid", details);
 
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ExpiredJwtException.class)
+    public final ResponseEntity<ErrorResponse> expiredJwtException(ExpiredJwtException e, WebRequest request) {
+        List<String> details = new ArrayList<>();
+
+        details.add(e.getLocalizedMessage());
+
+        ErrorResponse error = new ErrorResponse("This token has expired", details);
+
+        return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public final ResponseEntity<ErrorResponse> accessDeniedException(AccessDeniedException e, WebRequest request) {
+        List<String> details = new ArrayList<>();
+
+        details.add(e.getLocalizedMessage());
+
+        ErrorResponse error = new ErrorResponse("Access denied", details);
+
+        return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
     }
 
 }
