@@ -51,6 +51,10 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         String token = request.getHeader("Authorization");
 
         if (token != null) {
+            if (token.startsWith("Bearer ")) {
+                token = token.substring(7);
+            }
+
             String username = tokenUtil.getUsernameFromToken(token);
             Users userDetails = usersService.findByEmail(username);
             Set<GrantedAuthority> authoritySet = userDetails.getAuthorities();
